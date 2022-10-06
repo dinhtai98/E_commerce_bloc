@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ColorUtils {
   static Color fromString(String colorString) {
@@ -43,6 +44,8 @@ class ColorUtils {
     }
   }
 
+  static bool lightMode =
+      MediaQuery.of(Get.context!).platformBrightness == Brightness.light;
   static Color red = const Color(0xFFD30606);
   static Color grey = const Color(0xFFAFAFAF);
   static Color green = const Color(0xFF4CAF50);
@@ -51,4 +54,6 @@ class ColorUtils {
   static Color blue = const Color(0xFF1F00FF);
   static Color transparent = Colors.transparent;
   static Color yellow = const Color(0xFFEBDD00);
+  static Color background =
+      lightMode ? const Color(0xFFFFFFFF) : const Color(0xff042a49);
 }
