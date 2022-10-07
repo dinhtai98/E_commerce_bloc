@@ -2,7 +2,6 @@ import 'package:e_commerce/core/utils/color_utils.dart';
 import 'package:e_commerce/core/utils/custom_button.dart';
 import 'package:e_commerce/core/utils/custom_dialog.dart';
 import 'package:e_commerce/core/utils/localization_utils.dart';
-import 'package:e_commerce/core/utils/string_extension.dart';
 import 'package:e_commerce/core/utils/text_style_utils.dart';
 import 'package:e_commerce/global/app_text.dart';
 import 'package:flutter/material.dart';
