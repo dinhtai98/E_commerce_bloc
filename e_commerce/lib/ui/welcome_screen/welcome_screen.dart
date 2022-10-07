@@ -77,14 +77,14 @@ class _WelcomeScreenState extends State<WelcomeScreen>
           ),
           Positioned(
             top: 50.h,
-            left: 50.w,
+            left: MediaQuery.of(context).size.width / 2 - 150.w,
             child: AnimatedBuilder(
               animation: _animationImageController,
               child: Center(
                 child: Image.asset(
                   'assets/images/welcome_image_basket_of_fruit_and_bee.png',
-                  height: 260,
-                  width: 300,
+                  height: 260.h,
+                  width: 300.w,
                 ),
               ),
               builder: (context, widget) => Transform.scale(
