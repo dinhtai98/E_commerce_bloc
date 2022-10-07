@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 class ColorUtils {
   static Color fromString(String colorString) {
+    // ignore: unnecessary_null_comparison
     if (colorString == null) {
       return const Color(0xffF2F2F2);
     }

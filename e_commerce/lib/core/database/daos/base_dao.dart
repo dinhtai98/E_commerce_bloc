@@ -1,4 +1,3 @@
-import 'package:e_commerce/core/database/entities/account_entity.dart';
 import 'package:e_commerce/core/database/entities/base_entity.dart';
 import 'package:e_commerce/core/database/isar_database.dart';
 import 'package:e_commerce/global/locator.dart';
