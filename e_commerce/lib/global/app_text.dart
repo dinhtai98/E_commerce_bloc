@@ -14,4 +14,8 @@ class AppText {
   static const lblNext = 'Next';
   static const lblDone = 'Done';
   static const lblContinueAnyway = 'Continue anyway';
+  static const welcomeTitle1 = 'Get The Freshest Fruit Salad Combo';
+  static const welcomeDescription1 =
+      'We deliver the best and freshest fruit salad in town. Order for a combo today!!!';
+  static const btnLetsContinue = 'Let’s Continue';
 }
