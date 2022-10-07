@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [...blocProviders],
+      providers: blocProviders,
       child: ScreenUtilInit(
         designSize: const Size(375, 832),
         builder: (context, child) {
@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.red,
               scaffoldBackgroundColor: Colors.white,
+              fontFamily: 'TTNormsPro',
             ),
             debugShowCheckedModeBanner: false,
           );

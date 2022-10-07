@@ -54,6 +54,9 @@ class ColorUtils {
   static Color blue = const Color(0xFF1F00FF);
   static Color transparent = Colors.transparent;
   static Color yellow = const Color(0xFFEBDD00);
+  static Color white = const Color(0xFFFFFFFF);
+  static Color black = const Color(0xFF000000);
+  static Color deepOrange = const Color(0xFFFFA451);
   static Color background =
       lightMode ? const Color(0xFFFFFFFF) : const Color(0xff042a49);
 }
