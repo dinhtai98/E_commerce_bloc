@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class AnimationEaseIn extends StatefulWidget {
   final Widget child;
-  final Tween<Offset> tween;
-  final Duration delay;
+  final Tween<Offset> offset;
+  final Duration? delay;
   final Duration animationDuration;
   const AnimationEaseIn({
     Key? key,
     required this.child,
-    required this.tween,
-    required this.delay,
+    required this.offset,
+    this.delay = Duration.zero,
     required this.animationDuration,
   }) : super(key: key);
 
@@ -19,32 +19,31 @@ class AnimationEaseIn extends StatefulWidget {
 
 class _AnimationEaseInState extends State<AnimationEaseIn>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _animationBackgroundBottomChangeController;
-  late final Animation<Offset> _animationBackgroundBottomChange =
-      widget.tween.animate(CurvedAnimation(
-    parent: _animationBackgroundBottomChangeController,
+  late final AnimationController _controller;
+  late final Animation<Offset> _offset = widget.offset.animate(CurvedAnimation(
+    parent: _controller,
     curve: Curves.easeIn,
   ));
   @override
   void initState() {
-    _animationBackgroundBottomChangeController =
+    _controller =
         AnimationController(duration: widget.animationDuration, vsync: this);
-    Future.delayed(widget.delay, () {
-      _animationBackgroundBottomChangeController.forward();
+    Future.delayed(widget.delay!, () {
+      _controller.forward();
     });
     super.initState();
   }
 
   @override
   void dispose() {
-    _animationBackgroundBottomChangeController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return SlideTransition(
-      position: _animationBackgroundBottomChange,
+      position: _offset,
       child: widget.child,
     );
   }

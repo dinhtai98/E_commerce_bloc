@@ -2,9 +2,11 @@ import 'package:e_commerce/core/utils/color_utils.dart';
 import 'package:e_commerce/core/utils/custom_button.dart';
 import 'package:e_commerce/core/utils/text_style_utils.dart';
 import 'package:e_commerce/global/app_text.dart';
-import 'package:e_commerce/ui/welcome_screen/widgets/animation_ease_in.dart';
+import 'package:e_commerce/core/utils/animation_ease_in.dart';
+import 'package:e_commerce/global/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -96,7 +98,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
           ),
           AnimationEaseIn(
             animationDuration: _animationDurationOfText,
-            tween: Tween<Offset>(
+            offset: Tween<Offset>(
                 begin: const Offset(0.0, 2.5), end: const Offset(0.0, 1)),
             delay: _animationBackgroundChangeController.duration!,
             child: Container(
@@ -105,10 +107,10 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               color: ColorUtils.white,
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 40, horizontal: 24),
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
                 child: AnimationEaseIn(
                   animationDuration: _animationDurationOfText,
-                  tween: Tween<Offset>(
+                  offset: Tween<Offset>(
                       begin: const Offset(0.0, 1.5),
                       end: const Offset(0.0, .1)),
                   delay: _animationBackgroundChangeController.duration! +
@@ -116,24 +118,32 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        AppText.welcomeTitle1,
-                        style: TextStyleUtils.bold(16)
-                            .copyWith(color: ColorUtils.black, fontSize: 16),
-                      ),
                       SizedBox(
-                        height: 8.h,
-                      ),
-                      Text(
-                        AppText.welcomeDescription1,
-                        style: TextStyleUtils.regular(16)
-                            .copyWith(color: ColorUtils.black, fontSize: 16),
+                        height: 120.h,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              AppText.welcomeTitle1,
+                              style: TextStyleUtils.bold(16).copyWith(
+                                  color: ColorUtils.black, fontSize: 16),
+                            ),
+                            SizedBox(
+                              height: 17.h,
+                            ),
+                            Text(
+                              AppText.welcomeDescription1,
+                              style: TextStyleUtils.regular(16).copyWith(
+                                  color: ColorUtils.black, fontSize: 16),
+                            ),
+                          ],
+                        ),
                       ),
                       AnimationEaseIn(
                         animationDuration: _animationDurationOfText,
                         child: CustomButton(
                           onPressed: () {
-                            //TODO
+                            Get.toNamed(MyRouter.authenticationScreen);
                           },
                           child: Text(
                             AppText.btnLetsContinue,
@@ -146,9 +156,9 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                         delay: _animationBackgroundChangeController.duration! +
                             _animationDurationOfText +
                             _animationDurationOfText,
-                        tween: Tween<Offset>(
+                        offset: Tween<Offset>(
                             begin: const Offset(0.0, 8.0),
-                            end: const Offset(0.0, 2.0)),
+                            end: const Offset(0.0, 1.3)),
                       ),
                     ],
                   ),
