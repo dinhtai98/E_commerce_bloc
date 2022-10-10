@@ -49,6 +49,8 @@ class ColorUtils {
       MediaQuery.of(Get.context!).platformBrightness == Brightness.light;
   static Color red = const Color(0xFFD30606);
   static Color grey = const Color(0xFFAFAFAF);
+  static Color grey10 = const Color(0xFFF7F5F5);
+  static Color grey70 = const Color(0xFFC2BDBD);
   static Color green = const Color(0xFF4CAF50);
   static Color darkGreen = const Color(0xFF0D8547);
   static Color lightGrey = const Color(0xFFF8F8F8);

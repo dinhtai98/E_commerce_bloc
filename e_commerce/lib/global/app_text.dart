@@ -18,4 +18,7 @@ class AppText {
   static const welcomeDescription1 =
       'We deliver the best and freshest fruit salad in town. Order for a combo today!!!';
   static const btnLetsContinue = 'Let’s Continue';
+  static const authenticationTitle1 = 'What is your firstname?';
+  static const btnStartOrdering = 'Start Ordering';
+  static const lblName = 'Name';
 }
