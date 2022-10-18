@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'account_entity.dart';
+part of 'product_tag_entity.dart';
 
 // **************************************************************************
 // IsarCollectionGenerator
@@ -9,13 +9,13 @@ part of 'account_entity.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters
 
-extension GetAccountCollection on Isar {
-  IsarCollection<Account> get accounts => this.collection();
+extension GetProductTagCollection on Isar {
+  IsarCollection<ProductTag> get productTags => this.collection();
 }
 
-const AccountSchema = CollectionSchema(
-  name: r'Account',
-  id: -6646797162501847804,
+const ProductTagSchema = CollectionSchema(
+  name: r'ProductTag',
+  id: 6261216122614991964,
   properties: {
     r'name': PropertySchema(
       id: 0,
@@ -28,10 +28,10 @@ const AccountSchema = CollectionSchema(
       type: IsarType.string,
     )
   },
-  estimateSize: _accountEstimateSize,
-  serialize: _accountSerialize,
-  deserialize: _accountDeserialize,
-  deserializeProp: _accountDeserializeProp,
+  estimateSize: _productTagEstimateSize,
+  serialize: _productTagSerialize,
+  deserialize: _productTagDeserialize,
+  deserializeProp: _productTagDeserializeProp,
   idName: r'id',
   indexes: {
     r'uid': IndexSchema(
@@ -48,16 +48,24 @@ const AccountSchema = CollectionSchema(
       ],
     )
   },
-  links: {},
+  links: {
+    r'products': LinkSchema(
+      id: -7609654206095096714,
+      name: r'products',
+      target: r'Product',
+      single: false,
+      linkName: r'productTag',
+    )
+  },
   embeddedSchemas: {},
-  getId: _accountGetId,
-  getLinks: _accountGetLinks,
-  attach: _accountAttach,
+  getId: _productTagGetId,
+  getLinks: _productTagGetLinks,
+  attach: _productTagAttach,
   version: '3.0.2',
 );
 
-int _accountEstimateSize(
-  Account object,
+int _productTagEstimateSize(
+  ProductTag object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -72,8 +80,8 @@ int _accountEstimateSize(
   return bytesCount;
 }
 
-void _accountSerialize(
-  Account object,
+void _productTagSerialize(
+  ProductTag object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -82,13 +90,13 @@ void _accountSerialize(
   writer.writeString(offsets[1], object.uid);
 }
 
-Account _accountDeserialize(
+ProductTag _productTagDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Account(
+  final object = ProductTag(
     name: reader.readString(offsets[0]),
     uid: reader.readStringOrNull(offsets[1]),
   );
@@ -96,7 +104,7 @@ Account _accountDeserialize(
   return object;
 }
 
-P _accountDeserializeProp<P>(
+P _productTagDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -112,24 +120,25 @@ P _accountDeserializeProp<P>(
   }
 }
 
-Id _accountGetId(Account object) {
+Id _productTagGetId(ProductTag object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _accountGetLinks(Account object) {
-  return [];
+List<IsarLinkBase<dynamic>> _productTagGetLinks(ProductTag object) {
+  return [object.products];
 }
 
-void _accountAttach(IsarCollection<dynamic> col, Id id, Account object) {
+void _productTagAttach(IsarCollection<dynamic> col, Id id, ProductTag object) {
   object.id = id;
+  object.products.attach(col, col.isar.collection<Product>(), r'products', id);
 }
 
-extension AccountByIndex on IsarCollection<Account> {
-  Future<Account?> getByUid(String? uid) {
+extension ProductTagByIndex on IsarCollection<ProductTag> {
+  Future<ProductTag?> getByUid(String? uid) {
     return getByIndex(r'uid', [uid]);
   }
 
-  Account? getByUidSync(String? uid) {
+  ProductTag? getByUidSync(String? uid) {
     return getByIndexSync(r'uid', [uid]);
   }
 
@@ -141,12 +150,12 @@ extension AccountByIndex on IsarCollection<Account> {
     return deleteByIndexSync(r'uid', [uid]);
   }
 
-  Future<List<Account?>> getAllByUid(List<String?> uidValues) {
+  Future<List<ProductTag?>> getAllByUid(List<String?> uidValues) {
     final values = uidValues.map((e) => [e]).toList();
     return getAllByIndex(r'uid', values);
   }
 
-  List<Account?> getAllByUidSync(List<String?> uidValues) {
+  List<ProductTag?> getAllByUidSync(List<String?> uidValues) {
     final values = uidValues.map((e) => [e]).toList();
     return getAllByIndexSync(r'uid', values);
   }
@@ -161,33 +170,35 @@ extension AccountByIndex on IsarCollection<Account> {
     return deleteAllByIndexSync(r'uid', values);
   }
 
-  Future<Id> putByUid(Account object) {
+  Future<Id> putByUid(ProductTag object) {
     return putByIndex(r'uid', object);
   }
 
-  Id putByUidSync(Account object, {bool saveLinks = true}) {
+  Id putByUidSync(ProductTag object, {bool saveLinks = true}) {
     return putByIndexSync(r'uid', object, saveLinks: saveLinks);
   }
 
-  Future<List<Id>> putAllByUid(List<Account> objects) {
+  Future<List<Id>> putAllByUid(List<ProductTag> objects) {
     return putAllByIndex(r'uid', objects);
   }
 
-  List<Id> putAllByUidSync(List<Account> objects, {bool saveLinks = true}) {
+  List<Id> putAllByUidSync(List<ProductTag> objects, {bool saveLinks = true}) {
     return putAllByIndexSync(r'uid', objects, saveLinks: saveLinks);
   }
 }
 
-extension AccountQueryWhereSort on QueryBuilder<Account, Account, QWhere> {
-  QueryBuilder<Account, Account, QAfterWhere> anyId() {
+extension ProductTagQueryWhereSort
+    on QueryBuilder<ProductTag, ProductTag, QWhere> {
+  QueryBuilder<ProductTag, ProductTag, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension AccountQueryWhere on QueryBuilder<Account, Account, QWhereClause> {
-  QueryBuilder<Account, Account, QAfterWhereClause> idEqualTo(Id id) {
+extension ProductTagQueryWhere
+    on QueryBuilder<ProductTag, ProductTag, QWhereClause> {
+  QueryBuilder<ProductTag, ProductTag, QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -196,7 +207,7 @@ extension AccountQueryWhere on QueryBuilder<Account, Account, QWhereClause> {
     });
   }
 
-  QueryBuilder<Account, Account, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<ProductTag, ProductTag, QAfterWhereClause> idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -218,7 +229,7 @@ extension AccountQueryWhere on QueryBuilder<Account, Account, QWhereClause> {
     });
   }
 
-  QueryBuilder<Account, Account, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<ProductTag, ProductTag, QAfterWhereClause> idGreaterThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -227,7 +238,7 @@ extension AccountQueryWhere on QueryBuilder<Account, Account, QWhereClause> {
     });
   }
 
-  QueryBuilder<Account, Account, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<ProductTag, ProductTag, QAfterWhereClause> idLessThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -236,7 +247,7 @@ extension AccountQueryWhere on QueryBuilder<Account, Account, QWhereClause> {
     });
   }
 
-  QueryBuilder<Account, Account, QAfterWhereClause> idBetween(
+  QueryBuilder<ProductTag, ProductTag, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -252,7 +263,7 @@ extension AccountQueryWhere on QueryBuilder<Account, Account, QWhereClause> {
     });
   }
 
-  QueryBuilder<Account, Account, QAfterWhereClause> uidIsNull() {
+  QueryBuilder<ProductTag, ProductTag, QAfterWhereClause> uidIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IndexWhereClause.equalTo(
         indexName: r'uid',
@@ -261,7 +272,7 @@ extension AccountQueryWhere on QueryBuilder<Account, Account, QWhereClause> {
     });
   }
 
-  QueryBuilder<Account, Account, QAfterWhereClause> uidIsNotNull() {
+  QueryBuilder<ProductTag, ProductTag, QAfterWhereClause> uidIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IndexWhereClause.between(
         indexName: r'uid',
@@ -272,7 +283,8 @@ extension AccountQueryWhere on QueryBuilder<Account, Account, QWhereClause> {
     });
   }
 
-  QueryBuilder<Account, Account, QAfterWhereClause> uidEqualTo(String? uid) {
+  QueryBuilder<ProductTag, ProductTag, QAfterWhereClause> uidEqualTo(
+      String? uid) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IndexWhereClause.equalTo(
         indexName: r'uid',
@@ -281,7 +293,8 @@ extension AccountQueryWhere on QueryBuilder<Account, Account, QWhereClause> {
     });
   }
 
-  QueryBuilder<Account, Account, QAfterWhereClause> uidNotEqualTo(String? uid) {
+  QueryBuilder<ProductTag, ProductTag, QAfterWhereClause> uidNotEqualTo(
+      String? uid) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -316,9 +329,10 @@ extension AccountQueryWhere on QueryBuilder<Account, Account, QWhereClause> {
   }
 }
 
-extension AccountQueryFilter
-    on QueryBuilder<Account, Account, QFilterCondition> {
-  QueryBuilder<Account, Account, QAfterFilterCondition> idEqualTo(Id value) {
+extension ProductTagQueryFilter
+    on QueryBuilder<ProductTag, ProductTag, QFilterCondition> {
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> idEqualTo(
+      Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -327,7 +341,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> idGreaterThan(
     Id value, {
     bool include = false,
   }) {
@@ -340,7 +354,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> idLessThan(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> idLessThan(
     Id value, {
     bool include = false,
   }) {
@@ -353,7 +367,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> idBetween(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -370,7 +384,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> nameEqualTo(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> nameEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -383,7 +397,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> nameGreaterThan(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> nameGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -398,7 +412,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> nameLessThan(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> nameLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -413,7 +427,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> nameBetween(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> nameBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -432,7 +446,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> nameStartsWith(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> nameStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -445,7 +459,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> nameEndsWith(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> nameEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -458,7 +472,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> nameContains(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> nameContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -470,7 +484,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> nameMatches(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> nameMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -482,7 +496,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> nameIsEmpty() {
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> nameIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'name',
@@ -491,7 +505,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> nameIsNotEmpty() {
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> nameIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'name',
@@ -500,7 +514,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidIsNull() {
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'uid',
@@ -508,7 +522,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidIsNotNull() {
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'uid',
@@ -516,7 +530,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidEqualTo(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -529,7 +543,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidGreaterThan(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -544,7 +558,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidLessThan(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -559,7 +573,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidBetween(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -578,7 +592,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidStartsWith(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -591,7 +605,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidEndsWith(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -604,7 +618,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidContains(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -616,7 +630,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidMatches(
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -628,7 +642,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidIsEmpty() {
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'uid',
@@ -637,7 +651,7 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidIsNotEmpty() {
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'uid',
@@ -647,87 +661,149 @@ extension AccountQueryFilter
   }
 }
 
-extension AccountQueryObject
-    on QueryBuilder<Account, Account, QFilterCondition> {}
+extension ProductTagQueryObject
+    on QueryBuilder<ProductTag, ProductTag, QFilterCondition> {}
 
-extension AccountQueryLinks
-    on QueryBuilder<Account, Account, QFilterCondition> {}
+extension ProductTagQueryLinks
+    on QueryBuilder<ProductTag, ProductTag, QFilterCondition> {
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> products(
+      FilterQuery<Product> q) {
+    return QueryBuilder.apply(this, (query) {
+      return query.link(q, r'products');
+    });
+  }
 
-extension AccountQuerySortBy on QueryBuilder<Account, Account, QSortBy> {
-  QueryBuilder<Account, Account, QAfterSortBy> sortByName() {
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition>
+      productsLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'products', length, true, length, true);
+    });
+  }
+
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition>
+      productsIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'products', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition>
+      productsIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'products', 0, false, 999999, true);
+    });
+  }
+
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition>
+      productsLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'products', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition>
+      productsLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'products', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition>
+      productsLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(
+          r'products', lower, includeLower, upper, includeUpper);
+    });
+  }
+}
+
+extension ProductTagQuerySortBy
+    on QueryBuilder<ProductTag, ProductTag, QSortBy> {
+  QueryBuilder<ProductTag, ProductTag, QAfterSortBy> sortByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
     });
   }
 
-  QueryBuilder<Account, Account, QAfterSortBy> sortByNameDesc() {
+  QueryBuilder<ProductTag, ProductTag, QAfterSortBy> sortByNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.desc);
     });
   }
 
-  QueryBuilder<Account, Account, QAfterSortBy> sortByUid() {
+  QueryBuilder<ProductTag, ProductTag, QAfterSortBy> sortByUid() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'uid', Sort.asc);
     });
   }
 
-  QueryBuilder<Account, Account, QAfterSortBy> sortByUidDesc() {
+  QueryBuilder<ProductTag, ProductTag, QAfterSortBy> sortByUidDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'uid', Sort.desc);
     });
   }
 }
 
-extension AccountQuerySortThenBy
-    on QueryBuilder<Account, Account, QSortThenBy> {
-  QueryBuilder<Account, Account, QAfterSortBy> thenById() {
+extension ProductTagQuerySortThenBy
+    on QueryBuilder<ProductTag, ProductTag, QSortThenBy> {
+  QueryBuilder<ProductTag, ProductTag, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<Account, Account, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<ProductTag, ProductTag, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<Account, Account, QAfterSortBy> thenByName() {
+  QueryBuilder<ProductTag, ProductTag, QAfterSortBy> thenByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
     });
   }
 
-  QueryBuilder<Account, Account, QAfterSortBy> thenByNameDesc() {
+  QueryBuilder<ProductTag, ProductTag, QAfterSortBy> thenByNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.desc);
     });
   }
 
-  QueryBuilder<Account, Account, QAfterSortBy> thenByUid() {
+  QueryBuilder<ProductTag, ProductTag, QAfterSortBy> thenByUid() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'uid', Sort.asc);
     });
   }
 
-  QueryBuilder<Account, Account, QAfterSortBy> thenByUidDesc() {
+  QueryBuilder<ProductTag, ProductTag, QAfterSortBy> thenByUidDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'uid', Sort.desc);
     });
   }
 }
 
-extension AccountQueryWhereDistinct
-    on QueryBuilder<Account, Account, QDistinct> {
-  QueryBuilder<Account, Account, QDistinct> distinctByName(
+extension ProductTagQueryWhereDistinct
+    on QueryBuilder<ProductTag, ProductTag, QDistinct> {
+  QueryBuilder<ProductTag, ProductTag, QDistinct> distinctByName(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'name', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Account, Account, QDistinct> distinctByUid(
+  QueryBuilder<ProductTag, ProductTag, QDistinct> distinctByUid(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'uid', caseSensitive: caseSensitive);
@@ -735,21 +811,21 @@ extension AccountQueryWhereDistinct
   }
 }
 
-extension AccountQueryProperty
-    on QueryBuilder<Account, Account, QQueryProperty> {
-  QueryBuilder<Account, int, QQueryOperations> idProperty() {
+extension ProductTagQueryProperty
+    on QueryBuilder<ProductTag, ProductTag, QQueryProperty> {
+  QueryBuilder<ProductTag, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<Account, String, QQueryOperations> nameProperty() {
+  QueryBuilder<ProductTag, String, QQueryOperations> nameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'name');
     });
   }
 
-  QueryBuilder<Account, String?, QQueryOperations> uidProperty() {
+  QueryBuilder<ProductTag, String?, QQueryOperations> uidProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'uid');
     });

@@ -3,6 +3,7 @@ import 'package:e_commerce/core/utils/color_utils.dart';
 import 'package:e_commerce/core/utils/custom_button.dart';
 import 'package:e_commerce/core/utils/text_style_utils.dart';
 import 'package:e_commerce/global/app_text.dart';
+import 'package:e_commerce/global/custom_input_field.dart';
 import 'package:e_commerce/global/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -106,32 +107,12 @@ class _AuthenticationScreenState extends State<AuthenticationScreen>
                                 SizedBox(
                                   height: 17.h,
                                 ),
-                                TextField(
+                                CustomTextInputField(
                                   controller: _nameTextEditingController,
-                                  decoration: InputDecoration(
-                                    enabled: true,
-                                    filled: true,
-                                    fillColor: ColorUtils.grey10,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: const BorderSide(
-                                          width: 1, color: Colors.transparent),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: const BorderSide(
-                                          width: 1, color: Colors.transparent),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: const BorderSide(
-                                          width: 1, color: Colors.transparent),
-                                    ),
-                                    hintText: AppText.lblName,
-                                    hintStyle: TextStyleUtils.medium(16)
-                                        .copyWith(color: ColorUtils.grey70),
-                                  ),
-                                ),
+                                  hintText: AppText.lblName,
+                                  hintStyle: TextStyleUtils.medium(16)
+                                      .copyWith(color: ColorUtils.grey70),
+                                )
                               ],
                             ),
                           ),
@@ -139,7 +120,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen>
                             animationDuration: _animationDurationOfText,
                             child: CustomButton(
                               onPressed: () {
-                                //TODO
+                                Get.toNamed(MyRouter.homeScreen);
                               },
                               child: Text(
                                 AppText.btnStartOrdering,

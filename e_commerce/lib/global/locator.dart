@@ -9,7 +9,7 @@ GetIt locator = GetIt.instance;
 Future<void> setupLocator() async {
   locator.registerLazySingleton(() => IsarDatabase());
   locator.registerLazySingleton(() => GlobalData());
-  await locator<IsarDatabase>().init();
   registerDaoSingletons(locator);
   registerServiceSingletons(locator);
+  await locator<IsarDatabase>().init();
 }
