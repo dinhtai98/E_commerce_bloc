@@ -54,12 +54,16 @@ class ColorUtils {
   static Color green = const Color(0xFF4CAF50);
   static Color darkGreen = const Color(0xFF0D8547);
   static Color lightGrey = const Color(0xFFF8F8F8);
-  static Color blue = const Color(0xFF1F00FF);
+  static Color blue = const Color(0xFF27214D);
   static Color transparent = Colors.transparent;
   static Color yellow = const Color(0xFFEBDD00);
   static Color white = const Color(0xFFFFFFFF);
   static Color black = const Color(0xFF000000);
   static Color deepOrange = const Color(0xFFFFA451);
+  static Color lightOrange = const Color(0xFFFFF2E7);
+  static Color lightOrange2 = const Color(0xFFFFFCF2);
+  static Color lightPink = const Color(0xFFFEF4F4);
+  static Color lightPurple = const Color(0xFFF1EFF6);
   static Color background =
       lightMode ? const Color(0xFFFFFFFF) : const Color(0xff042a49);
 }

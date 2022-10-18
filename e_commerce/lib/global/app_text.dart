@@ -21,4 +21,8 @@ class AppText {
   static const authenticationTitle1 = 'What is your firstname?';
   static const btnStartOrdering = 'Start Ordering';
   static const lblName = 'Name';
+  static const lblWelcome = 'Welcome,';
+  static const lblBasket = 'Basket';
+  static const lblSearchForFruitSaladCombos = 'Search for fruit salad combos';
+  static const lblRecommendedCombo = 'Recommended Combo';
 }

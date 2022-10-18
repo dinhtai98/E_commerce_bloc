@@ -8,19 +8,23 @@ abstract class BaseDao<T extends BaseEntity> {
   @protected
   late IsarCollection<T> collection;
   BaseDao() {
-    collection = locator<IsarDatabase>().isar!.getCollection();
+    collection = locator<IsarDatabase>().isar!.collection<T>();
   }
 
   Future<void> insert(T entity) async {
     try {
-      await collection.isar.writeTxn((isar) => collection.put(entity));
+      await locator<IsarDatabase>()
+          .isar!
+          .writeTxn(() async => await collection.put(entity));
       // ignore: empty_catches
     } catch (e) {}
   }
 
   Future<void> insertAll(List<T> entities) async {
     try {
-      await collection.isar.writeTxn((isar) => collection.putAll(entities));
+      await collection.isar.writeTxn(() async => await collection.putAll(
+            entities,
+          ));
       // ignore: empty_catches
     } catch (e) {}
   }
@@ -30,22 +34,24 @@ abstract class BaseDao<T extends BaseEntity> {
   }
 
   Future<void> updateById(int id, T entity) async {
-    await collection.isar.writeTxn((isar) async {
+    await collection.isar.writeTxn(() async {
       entity.id = await collection.put(entity);
     });
   }
 
   List<T> getAllCollection() {
-    return collection.where().findAllSync();
+    return collection.where().findAllSync().toList();
   }
 
   Future<void> deleteById(int id) async {
-    await collection.isar.writeTxn((b) async {
+    await collection.isar.writeTxn(() async {
       await collection.delete(id);
     });
   }
 
-  void clearCollection() {
-    collection.clearSync();
+  Future<void> clearCollection() async {
+    await collection.isar.writeTxn(() async {
+      await collection.clear();
+    });
   }
 }
