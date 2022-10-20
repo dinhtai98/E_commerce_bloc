@@ -25,4 +25,8 @@ class AppText {
   static const lblBasket = 'Basket';
   static const lblSearchForFruitSaladCombos = 'Search for fruit salad combos';
   static const lblRecommendedCombo = 'Recommended Combo';
+  static const lblThisComboContain = 'This combo contains:';
+  static const lblIntroduceProduct =
+      'If you are looking for a new fruit salad to eat today, quinoa is the perfect brunch for you. make';
+  static const btnAddToBasket = 'Add To Basket';
 }

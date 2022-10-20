@@ -7,14 +7,20 @@ import 'package:e_commerce/core/ui_models/category_ui_model.dart';
 import 'package:e_commerce/core/ui_models/product_ui_model.dart';
 import 'package:e_commerce/core/utils/animation_ease_in.dart';
 import 'package:e_commerce/core/utils/color_utils.dart';
+import 'package:e_commerce/core/utils/icon_button_util.dart';
 import 'package:e_commerce/core/utils/text_style_utils.dart';
 import 'package:e_commerce/core/utils/text_underliner.dart';
 import 'package:e_commerce/global/app_text.dart';
 import 'package:e_commerce/global/custom_input_field.dart';
+import 'package:e_commerce/global/global_data.dart';
+import 'package:e_commerce/global/locator.dart';
+import 'package:e_commerce/global/router.dart';
 import 'package:e_commerce/ui/common_widgets/appbar.dart';
+import 'package:e_commerce/ui/product_screen/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 part 'widgets/build_category.dart';
 part 'widgets/build_list_of_product.dart';
@@ -47,7 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(top: 40.h),
         child: Column(
           children: [
             CustomAppBar(

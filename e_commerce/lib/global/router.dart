@@ -1,5 +1,6 @@
 import 'package:e_commerce/ui/authentication_screen/authentication_screen.dart';
 import 'package:e_commerce/ui/home_screen/home_screen.dart';
+import 'package:e_commerce/ui/product_screen/product_screen.dart';
 import 'package:e_commerce/ui/splash/splash_screen.dart';
 import 'package:e_commerce/ui/welcome_screen/welcome_screen.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ class MyRouter {
   static const String welcomeScreen = '/welcomeScreen';
   static const String authenticationScreen = '/authenticationScreen';
   static const String homeScreen = '/homeScreen';
+  static const String productScreen = '/productScreen';
 
   static PageRouteBuilder _buildRouteNavigationWithoutEffect(
       RouteSettings settings, Widget widget) {
@@ -59,6 +61,12 @@ class MyRouter {
         return _buildRouteNavigationWithoutEffect(
           settings,
           const HomeScreen(),
+        );
+      case productScreen:
+        return _buildRouteNavigationWithoutEffect(
+          settings,
+          ProductScreen(
+              arguments: settings.arguments as ProductScreenArguments),
         );
       default:
         return _buildRouteNavigationWithoutEffect(
