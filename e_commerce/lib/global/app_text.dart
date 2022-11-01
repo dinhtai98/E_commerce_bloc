@@ -32,4 +32,11 @@ class AppText {
   static const lblMyBasket = 'My Basket';
   static const btnCheckout = 'Checkout';
   static const lblTotal = 'Total';
+  static const lblYourDeliveryAddress = 'Your delivery address';
+  static const lblAddressHint = '10th avenue, Lekki, Lagos.';
+  static const lblNumberWeCanCall = 'Number we can call';
+  static const lblPhoneHint = '09090909090';
+
+  static const btnPayOnDelivery = 'Pay on delivery';
+  static const btnPayWithCard = 'Pay with card';
 }
