@@ -5,10 +5,12 @@ class IconButtonUtil extends StatelessWidget {
   final Icon icon;
   final double buttonSize;
   final VoidCallback ontap;
+  final Color background;
   const IconButtonUtil({
     required this.ontap,
     required this.icon,
     required this.buttonSize,
+    this.background = const Color(0xFFFFF2E7),
     super.key,
   });
 
@@ -21,7 +23,7 @@ class IconButtonUtil extends StatelessWidget {
         height: buttonSize,
         decoration: BoxDecoration(
           border: Border.all(color: ColorUtils.transparent, width: .5),
-          color: ColorUtils.lightOrange,
+          color: background,
           shape: BoxShape.circle,
         ),
         child: icon,

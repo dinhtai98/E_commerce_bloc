@@ -6,6 +6,7 @@ import 'package:e_commerce/global/global_data.dart';
 import 'package:e_commerce/global/locator.dart';
 import 'package:e_commerce/ui/basket_screen/widgets/basket_item_widget.dart';
 import 'package:e_commerce/ui/common_widgets/appbar.dart';
+import 'package:e_commerce/ui/delivery_details_screen/delivery_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -103,7 +104,13 @@ class _BasketScreenState extends State<BasketScreen> {
                     ),
                     CustomButton(
                       onPressed: () {
-                        //TODO
+                        showModalBottomSheet(
+                            backgroundColor: ColorUtils.transparent,
+                            isScrollControlled: true,
+                            context: context,
+                            builder: (context) {
+                              return const DeliveryDetailWidget();
+                            });
                       },
                       child: Text(
                         AppText.btnCheckout,
