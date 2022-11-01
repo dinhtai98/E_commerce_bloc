@@ -29,4 +29,7 @@ class AppText {
   static const lblIntroduceProduct =
       'If you are looking for a new fruit salad to eat today, quinoa is the perfect brunch for you. make';
   static const btnAddToBasket = 'Add To Basket';
+  static const lblMyBasket = 'My Basket';
+  static const btnCheckout = 'Checkout';
+  static const lblTotal = 'Total';
 }
