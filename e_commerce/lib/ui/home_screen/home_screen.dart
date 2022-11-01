@@ -53,24 +53,21 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.only(top: 40.h),
-        child: Column(
+      body: CustomAppbarAndBody(
+        leading: IconButton(
+          icon: Image.asset('assets/images/menu.png'),
+          iconSize: 20,
+          onPressed: () {},
+        ),
+        title: Text(
+          AppText.lblWelcome + " Chris" + '.',
+          style: TextStyleUtils.regular(14).copyWith(
+            color: ColorUtils.blue,
+          ),
+        ),
+        activeBasketButton: true,
+        body: Column(
           children: [
-            CustomAppBar(
-              leading: IconButton(
-                icon: Image.asset('assets/images/menu.png'),
-                iconSize: 20,
-                onPressed: () {},
-              ),
-              title: Text(
-                AppText.lblWelcome + " Chris" + '.',
-                style: TextStyleUtils.regular(14).copyWith(
-                  color: ColorUtils.blue,
-                ),
-              ),
-              activeBasketButton: true,
-            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
               child: SizedBox(

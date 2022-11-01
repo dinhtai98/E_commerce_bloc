@@ -1,4 +1,5 @@
 import 'package:e_commerce/ui/authentication_screen/authentication_screen.dart';
+import 'package:e_commerce/ui/basket_screen/basket_screen.dart';
 import 'package:e_commerce/ui/home_screen/home_screen.dart';
 import 'package:e_commerce/ui/product_screen/product_screen.dart';
 import 'package:e_commerce/ui/splash/splash_screen.dart';
@@ -11,6 +12,7 @@ class MyRouter {
   static const String authenticationScreen = '/authenticationScreen';
   static const String homeScreen = '/homeScreen';
   static const String productScreen = '/productScreen';
+  static const String myBasketScreen = '/myBasketScreen';
 
   static PageRouteBuilder _buildRouteNavigationWithoutEffect(
       RouteSettings settings, Widget widget) {
@@ -67,6 +69,11 @@ class MyRouter {
           settings,
           ProductScreen(
               arguments: settings.arguments as ProductScreenArguments),
+        );
+      case myBasketScreen:
+        return _buildRouteNavigationWithoutEffect(
+          settings,
+          const BasketScreen(),
         );
       default:
         return _buildRouteNavigationWithoutEffect(

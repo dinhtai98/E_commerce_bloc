@@ -2,47 +2,79 @@ import 'package:badges/badges.dart';
 import 'package:e_commerce/core/utils/color_utils.dart';
 import 'package:e_commerce/core/utils/text_style_utils.dart';
 import 'package:e_commerce/global/app_text.dart';
+import 'package:e_commerce/global/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppbarAndBody extends StatelessWidget
+    implements PreferredSizeWidget {
   final Widget? leading;
   final Widget? title;
   final bool activeBackButton;
   final bool activeBasketButton;
   final Color backgroundColor;
-  const CustomAppBar({
+  final Widget body;
+  final double height;
+  const CustomAppbarAndBody({
     Key? key,
     this.leading,
     this.title,
+    required this.body,
     this.activeBackButton = false,
     this.activeBasketButton = false,
     this.backgroundColor = Colors.white,
+    this.height = 90,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              leading != null
-                  ? leading!
-                  : (activeBackButton
-                      ? const _BuildBackButton()
-                      : const SizedBox.shrink()),
-              title ?? const SizedBox.shrink(),
-            ],
+    return Column(
+      children: [
+        Container(
+          color: backgroundColor,
+          height: height,
+          child: Padding(
+            padding: EdgeInsets.only(top: 40.h),
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: leading != null
+                              ? leading!
+                              : (activeBackButton
+                                  ? const _BuildBackButton()
+                                  : const SizedBox.shrink()),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Center(child: title ?? const SizedBox.shrink()),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: activeBasketButton
+                              ? const _BuildBasket()
+                              : const SizedBox.shrink(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-          activeBasketButton ? const _BuildBasket() : const SizedBox.shrink(),
-        ],
-      ),
+        ),
+        Expanded(child: body),
+      ],
     );
   }
 
@@ -67,7 +99,7 @@ class _BuildBasket extends StatelessWidget {
       ),
       child: IconButton(
         onPressed: () {
-          //TODO
+          Get.toNamed(MyRouter.myBasketScreen);
         },
         iconSize: 20.sp,
         icon: Badge(

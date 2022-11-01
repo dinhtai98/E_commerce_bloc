@@ -58,16 +58,14 @@ class _ProductScreenState extends State<ProductScreen>
   Widget build(BuildContext context) {
     var item = widget.arguments.product;
     return Scaffold(
-      body: Container(
-        color: ColorUtils.deepOrange,
-        child: Padding(
-          padding: EdgeInsets.only(top: 40.h),
+      body: CustomAppbarAndBody(
+        activeBasketButton: true,
+        activeBackButton: true,
+        backgroundColor: ColorUtils.deepOrange,
+        body: Container(
+          color: ColorUtils.deepOrange,
           child: Column(
             children: [
-              const CustomAppBar(
-                activeBasketButton: false,
-                activeBackButton: true,
-              ),
               AnimatedBuilder(
                 animation: _animationImageController,
                 child: Center(
@@ -89,13 +87,14 @@ class _ProductScreenState extends State<ProductScreen>
                 offset: Tween<Offset>(
                     begin: const Offset(0.0, 1.5), end: const Offset(0.0, .05)),
                 child: Container(
-                  height: MediaQuery.of(context).size.height / 1.75,
+                  height: MediaQuery.of(context).size.height / 1.8,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     color: ColorUtils.white,
-                    border:
-                        Border.all(width: 1.0, color: ColorUtils.transparent),
-                    borderRadius: BorderRadius.all(Radius.circular(20.0.r)),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.r),
+                      topRight: Radius.circular(20.r),
+                    ),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -117,13 +116,14 @@ class _ProductScreenState extends State<ProductScreen>
                             item: item,
                           ),
                           AnimationEaseIn(
-                              animationDuration: _animationDurationOfText,
-                              offset: Tween<Offset>(
-                                  begin: const Offset(0.0, 1.5),
-                                  end: const Offset(0.0, 0.0)),
-                              delay: _animationDurationOfText +
-                                  _animationDurationDelay,
-                              child: const ComboContain()),
+                            animationDuration: _animationDurationOfText,
+                            offset: Tween<Offset>(
+                                begin: const Offset(0.0, 1.5),
+                                end: const Offset(0.0, 0.0)),
+                            delay: _animationDurationOfText +
+                                _animationDurationDelay,
+                            child: const ComboContain(),
+                          ),
                           AnimationEaseIn(
                             animationDuration: _animationDurationOfText,
                             offset: Tween<Offset>(
