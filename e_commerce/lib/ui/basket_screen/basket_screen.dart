@@ -105,12 +105,13 @@ class _BasketScreenState extends State<BasketScreen> {
                     CustomButton(
                       onPressed: () {
                         showModalBottomSheet(
-                            backgroundColor: ColorUtils.transparent,
-                            isScrollControlled: true,
-                            context: context,
-                            builder: (context) {
-                              return const DeliveryDetailWidget();
-                            });
+                          backgroundColor: ColorUtils.transparent,
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (context) {
+                            return const DeliveryDetailWidget();
+                          },
+                        );
                       },
                       child: Text(
                         AppText.btnCheckout,

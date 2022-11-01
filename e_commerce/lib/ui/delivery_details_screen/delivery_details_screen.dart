@@ -4,8 +4,10 @@ import 'package:e_commerce/core/utils/modal_bottom_sheet_util.dart';
 import 'package:e_commerce/core/utils/text_style_utils.dart';
 import 'package:e_commerce/global/app_text.dart';
 import 'package:e_commerce/global/custom_input_field.dart';
+import 'package:e_commerce/ui/add_new_card_screen/add_new_card_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class DeliveryDetailWidget extends StatefulWidget {
   const DeliveryDetailWidget({super.key});
@@ -65,7 +67,15 @@ class _DeliveryDetailWidgetState extends State<DeliveryDetailWidget> {
               ),
               CustomButton(
                 onPressed: () {
-                  //TODO Pay with card
+                  Get.back();
+                  showModalBottomSheet(
+                    backgroundColor: ColorUtils.transparent,
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) {
+                      return const AddNewCard();
+                    },
+                  );
                 },
                 child: Text(
                   AppText.btnPayOnDelivery,

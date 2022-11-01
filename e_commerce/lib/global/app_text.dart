@@ -36,7 +36,13 @@ class AppText {
   static const lblAddressHint = '10th avenue, Lekki, Lagos.';
   static const lblNumberWeCanCall = 'Number we can call';
   static const lblPhoneHint = '09090909090';
+  static const lblCardHolderName = 'Card holder’s name';
+  static const lblCardNumber = 'Card number';
+  static const lblDate = 'Date';
+  static const lblDateHint = 'MM/YY';
+  static const lblCVV = 'CVV';
 
   static const btnPayOnDelivery = 'Pay on delivery';
   static const btnPayWithCard = 'Pay with card';
+  static const btnCompleteOrder = 'Complete order';
 }
