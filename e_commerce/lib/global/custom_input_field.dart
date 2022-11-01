@@ -6,17 +6,20 @@ class CustomTextInputField extends StatelessWidget {
   final String hintText;
   final Widget? prefixIcon;
   final TextStyle? hintStyle;
+  final bool? enabled;
   const CustomTextInputField({
     Key? key,
     required this.controller,
     this.hintText = '',
     this.prefixIcon,
     this.hintStyle,
+    this.enabled,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      enabled: enabled,
       controller: controller,
       decoration: InputDecoration(
         enabled: true,
