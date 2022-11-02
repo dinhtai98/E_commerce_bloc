@@ -5,8 +5,10 @@ import 'package:e_commerce/core/utils/modal_bottom_sheet_util.dart';
 import 'package:e_commerce/core/utils/text_style_utils.dart';
 import 'package:e_commerce/global/app_text.dart';
 import 'package:e_commerce/global/custom_input_field.dart';
+import 'package:e_commerce/global/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class AddNewCard extends StatefulWidget {
   const AddNewCard({super.key});
@@ -119,7 +121,7 @@ class _AddNewCardState extends State<AddNewCard> {
           Center(
             child: CustomButton(
               onPressed: () {
-                //TODO complete order
+                Get.toNamed(MyRouter.orderCompleted);
               },
               child: Text(
                 AppText.btnCompleteOrder,

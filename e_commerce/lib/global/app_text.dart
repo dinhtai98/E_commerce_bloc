@@ -17,9 +17,7 @@ class AppText {
   static const welcomeTitle1 = 'Get The Freshest Fruit Salad Combo';
   static const welcomeDescription1 =
       'We deliver the best and freshest fruit salad in town. Order for a combo today!!!';
-  static const btnLetsContinue = 'Let’s Continue';
   static const authenticationTitle1 = 'What is your firstname?';
-  static const btnStartOrdering = 'Start Ordering';
   static const lblName = 'Name';
   static const lblWelcome = 'Welcome,';
   static const lblBasket = 'Basket';
@@ -28,9 +26,7 @@ class AppText {
   static const lblThisComboContain = 'This combo contains:';
   static const lblIntroduceProduct =
       'If you are looking for a new fruit salad to eat today, quinoa is the perfect brunch for you. make';
-  static const btnAddToBasket = 'Add To Basket';
   static const lblMyBasket = 'My Basket';
-  static const btnCheckout = 'Checkout';
   static const lblTotal = 'Total';
   static const lblYourDeliveryAddress = 'Your delivery address';
   static const lblAddressHint = '10th avenue, Lekki, Lagos.';
@@ -41,8 +37,17 @@ class AppText {
   static const lblDate = 'Date';
   static const lblDateHint = 'MM/YY';
   static const lblCVV = 'CVV';
+  static const lblOrderTaken = 'Order Taken';
+  static const lblOrderCompletedDescription =
+      'Your order have been taken and is being attended to';
 
   static const btnPayOnDelivery = 'Pay on delivery';
   static const btnPayWithCard = 'Pay with card';
   static const btnCompleteOrder = 'Complete order';
+  static const btnStartOrdering = 'Start Ordering';
+  static const btnLetsContinue = 'Let’s Continue';
+  static const btnCheckout = 'Checkout';
+  static const btnTrackOrder = 'Track order';
+  static const btnContinueShopping = 'Continue shopping';
+  static const btnAddToBasket = 'Add To Basket';
 }
