@@ -3,8 +3,10 @@ import 'package:e_commerce/core/utils/color_utils.dart';
 import 'package:e_commerce/core/utils/custom_button.dart';
 import 'package:e_commerce/core/utils/text_style_utils.dart';
 import 'package:e_commerce/global/app_text.dart';
+import 'package:e_commerce/global/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class OrderCompletedScreen extends StatefulWidget {
   const OrderCompletedScreen({super.key});
@@ -115,7 +117,7 @@ class _BuildButtonList extends StatelessWidget {
             width: 210.w,
             child: CustomButton(
               onPressed: () {
-                //TODO Track order
+                Get.toNamed(MyRouter.deliveryStatusScreen);
               },
               child: Text(
                 AppText.btnTrackOrder,
@@ -130,7 +132,7 @@ class _BuildButtonList extends StatelessWidget {
             width: 170.w,
             child: CustomButton(
               onPressed: () {
-                //TODO continue shopping
+                Get.offAllNamed(MyRouter.homeScreen);
               },
               child: Text(
                 AppText.btnContinueShopping,
