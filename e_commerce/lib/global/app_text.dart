@@ -40,6 +40,12 @@ class AppText {
   static const lblOrderTaken = 'Order Taken';
   static const lblOrderCompletedDescription =
       'Your order have been taken and is being attended to';
+  static const lblDeliveryStatus = 'Delivery Status';
+  static const lblDeliveryOrderTaken = 'Order taken';
+  static const lblDeliveryOrderIsBeingProcessed = 'Order is being processed';
+  static const lblDeliveryOrderIsBeingDelivered = 'Order is being delivered';
+  static const lblOrderReceived = 'Order Received';
+  static const lblYourMealIsOnItsWay = 'Your meal is on it’s way!!';
 
   static const btnPayOnDelivery = 'Pay on delivery';
   static const btnPayWithCard = 'Pay with card';

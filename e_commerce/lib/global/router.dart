@@ -1,5 +1,6 @@
 import 'package:e_commerce/ui/authentication_screen/authentication_screen.dart';
 import 'package:e_commerce/ui/basket_screen/basket_screen.dart';
+import 'package:e_commerce/ui/delivery_status_screen/delivery_status_screen.dart';
 import 'package:e_commerce/ui/home_screen/home_screen.dart';
 import 'package:e_commerce/ui/order_completed_screen/order_completed_screen.dart';
 import 'package:e_commerce/ui/product_screen/product_screen.dart';
@@ -15,6 +16,7 @@ class MyRouter {
   static const String productScreen = '/productScreen';
   static const String myBasketScreen = '/myBasketScreen';
   static const String orderCompleted = '/orderCompleted';
+  static const String deliveryStatusScreen = '/deliveryStatusScreen';
 
   static PageRouteBuilder _buildRouteNavigationWithoutEffect(
       RouteSettings settings, Widget widget) {
@@ -81,6 +83,11 @@ class MyRouter {
         return _buildRouteNavigationWithoutEffect(
           settings,
           const OrderCompletedScreen(),
+        );
+      case deliveryStatusScreen:
+        return _buildRouteNavigationWithoutEffect(
+          settings,
+          const DeliveryStatusScreen(),
         );
       default:
         return _buildRouteNavigationWithoutEffect(

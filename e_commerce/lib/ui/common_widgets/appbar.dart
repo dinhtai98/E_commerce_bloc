@@ -134,17 +134,17 @@ class _BuildBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: ColorUtils.white,
-        borderRadius: BorderRadius.circular(100),
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(8.sp),
-        child: InkWell(
-          onTap: () {
-            Get.back();
-          },
+    return InkWell(
+      onTap: () {
+        Get.back();
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: ColorUtils.white,
+          borderRadius: BorderRadius.circular(100),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(8.sp),
           child: Row(
             children: [
               Icon(

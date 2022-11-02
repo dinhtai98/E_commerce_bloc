@@ -4,8 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:e_commerce/core/database/entities/product_tags/product_tag_entity.dart';
 import 'package:e_commerce/core/services/interfaces/iproduct_service.dart';
 import 'package:e_commerce/core/services/interfaces/iproduct_tag_service.dart';
+import 'package:e_commerce/core/ui_models/basket_ui_model.dart';
 import 'package:e_commerce/core/ui_models/product_ui_model.dart';
 import 'package:e_commerce/core/utils/color_utils.dart';
+import 'package:e_commerce/global/global_data.dart';
 import 'package:e_commerce/global/locator.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +42,9 @@ class ProductBloc extends Bloc<ProductBlocEvent, ProductBlocState> {
             .getProducts()
             .take(2)
             .map((x) => ProductUIModel(product: x, elevation: 5))
+            .toList();
+        locator<GlobalData>().basketList = products
+            .map((e) => BasketUIModel(product: e, quantity: 1))
             .toList();
         emit(
           ProductLoadedState(
