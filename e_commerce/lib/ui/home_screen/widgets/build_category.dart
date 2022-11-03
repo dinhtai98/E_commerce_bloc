@@ -5,8 +5,6 @@ class _BuilCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var categoryBloc = context.read<HomeCategoryBloc>();
-    categoryBloc.add(const CategoryInitEvent());
     return SizedBox(
       height: 40.h,
       child: BlocSelector<HomeCategoryBloc, HomeCategoryBlocState,

@@ -6,6 +6,12 @@ import 'package:flutter_bloc/src/bloc_provider.dart';
 
 List<BlocProviderSingleChildWidget> blocProviders = [
   BlocProvider(create: (_) => AccountBloc()),
-  BlocProvider(create: (_) => HomeCategoryBloc()),
-  BlocProvider(create: (_) => ProductBloc()),
+  BlocProvider(
+    lazy: false,
+    create: (_) => HomeCategoryBloc()..add(const CategoryInitEvent()),
+  ),
+  BlocProvider(
+    lazy: false,
+    create: (_) => ProductBloc()..add(const ProductInitEvent()),
+  ),
 ];

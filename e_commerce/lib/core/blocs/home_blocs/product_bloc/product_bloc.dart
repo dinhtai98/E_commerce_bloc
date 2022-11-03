@@ -22,7 +22,7 @@ class ProductBloc extends Bloc<ProductBlocEvent, ProductBlocState> {
   List<ProductUIModel> products = [];
   List<ProductUIModel> listOfProductRecommended = [];
   List<ProductTag> tags = [];
-  ProductBloc() : super(ProductBlocInitial()) {
+  ProductBloc() : super(const ProductBlocState.initial()) {
     on<ProductInitEvent>(
       (event, emit) {
         List<Color> colors = [
@@ -47,7 +47,7 @@ class ProductBloc extends Bloc<ProductBlocEvent, ProductBlocState> {
             .map((e) => BasketUIModel(product: e, quantity: 1))
             .toList();
         emit(
-          ProductLoadedState(
+          ProductBlocState.productLoadSuccess(
             listOfProduct: products,
             listOfProductRecommended: listOfProductRecommended,
             listOfProductTag: tags,
@@ -57,17 +57,11 @@ class ProductBloc extends Bloc<ProductBlocEvent, ProductBlocState> {
     );
 
     on<ProductTagSelectedEvent>((event, emit) {
-      var productOfTag = products
-          .where((x) => x.product.productTag.value?.id == event.tagSelected.id)
+      var listOfProduct = event.tagSelected.products
+          .map((e) => ProductUIModel(product: e, elevation: 5))
           .toList();
-      emit(
-        ProductTagSelectedState(
-          tagSelected: event.tagSelected,
-          listOfProduct: productOfTag,
-          listOfProductRecommended: listOfProductRecommended,
-          listOfProductTag: tags,
-        ),
-      );
+      emit(state.copyWith(
+          tagSelected: event.tagSelected, listOfProduct: listOfProduct));
     });
   }
 }

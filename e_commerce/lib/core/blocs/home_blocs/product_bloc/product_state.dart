@@ -1,59 +1,44 @@
 part of 'product_bloc.dart';
 
-abstract class ProductBlocState extends Equatable {
+class ProductBlocState extends Equatable {
   final List<ProductUIModel> listOfProduct;
   final List<ProductUIModel> listOfProductRecommended;
   final List<ProductTag> listOfProductTag;
-  final ProductTag? productTagSelected;
-  const ProductBlocState({
-    required this.listOfProduct,
-    required this.listOfProductRecommended,
-    required this.listOfProductTag,
-    this.productTagSelected,
+  final ProductTag? tagSelected;
+  const ProductBlocState._({
+    this.listOfProduct = const [],
+    this.listOfProductRecommended = const [],
+    this.listOfProductTag = const [],
+    this.tagSelected,
   });
 
+  const ProductBlocState.initial() : this._();
+  const ProductBlocState.productLoadSuccess({
+    required List<ProductUIModel> listOfProduct,
+    required List<ProductUIModel> listOfProductRecommended,
+    required List<ProductTag> listOfProductTag,
+  }) : this._(
+          listOfProduct: listOfProduct,
+          listOfProductRecommended: listOfProductRecommended,
+          listOfProductTag: listOfProductTag,
+        );
+
   @override
-  List<Object?> get props => [
-        listOfProduct,
-        listOfProductRecommended,
-        listOfProductTag,
-        productTagSelected,
-      ];
-}
+  List<Object?> get props =>
+      [listOfProduct, listOfProductRecommended, listOfProductTag, tagSelected];
 
-class ProductBlocInitial extends ProductBlocState {
-  ProductBlocInitial()
-      : super(
-          listOfProduct: [],
-          listOfProductRecommended: [],
-          listOfProductTag: [],
-          productTagSelected: null,
-        );
-}
-
-class ProductLoadedState extends ProductBlocState {
-  const ProductLoadedState({
-    required List<ProductUIModel> listOfProduct,
-    required List<ProductUIModel> listOfProductRecommended,
-    required List<ProductTag> listOfProductTag,
-  }) : super(
-          listOfProduct: listOfProduct,
-          listOfProductRecommended: listOfProductRecommended,
-          listOfProductTag: listOfProductTag,
-          productTagSelected: null,
-        );
-}
-
-class ProductTagSelectedState extends ProductBlocState {
-  const ProductTagSelectedState({
-    required ProductTag tagSelected,
-    required List<ProductUIModel> listOfProduct,
-    required List<ProductUIModel> listOfProductRecommended,
-    required List<ProductTag> listOfProductTag,
-  }) : super(
-          listOfProduct: listOfProduct,
-          listOfProductRecommended: listOfProductRecommended,
-          listOfProductTag: listOfProductTag,
-          productTagSelected: tagSelected,
-        );
+  ProductBlocState copyWith({
+    List<ProductUIModel>? listOfProduct,
+    List<ProductUIModel>? listOfProductRecommended,
+    List<ProductTag>? listOfProductTag,
+    ProductTag? tagSelected,
+  }) {
+    return ProductBlocState._(
+      listOfProduct: listOfProduct ?? this.listOfProduct,
+      listOfProductRecommended:
+          listOfProductRecommended ?? this.listOfProductRecommended,
+      listOfProductTag: listOfProductTag ?? this.listOfProductTag,
+      tagSelected: tagSelected ?? this.tagSelected,
+    );
+  }
 }

@@ -1,14 +1,10 @@
-import 'package:e_commerce/core/database/daos/product_dao.dart';
 import 'package:e_commerce/core/database/entities/account_entity.dart';
 import 'package:e_commerce/core/database/entities/product_tags/product_tag_entity.dart';
 import 'package:e_commerce/core/database/entities/products/product_entity.dart';
 import 'package:e_commerce/core/services/interfaces/iproduct_service.dart';
 import 'package:e_commerce/core/services/interfaces/iproduct_tag_service.dart';
-import 'package:e_commerce/core/utils/storage_utils.dart';
 import 'package:e_commerce/global/locator.dart';
 import 'package:isar/isar.dart';
-
-import 'daos/product_tag_dao.dart';
 
 class IsarDatabase {
   IsarDatabase();
