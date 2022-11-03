@@ -14,4 +14,6 @@ class ProductInitEvent extends ProductBlocEvent {
 class ProductTagSelectedEvent extends ProductBlocEvent {
   final ProductTag tagSelected;
   const ProductTagSelectedEvent({required this.tagSelected});
+  @override
+  List<Object> get props => [tagSelected];
 }

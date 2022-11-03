@@ -38,18 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _controller = TextEditingController();
   final Duration animationDurationOfProductList =
       const Duration(milliseconds: 300);
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    context.read<ProductBloc>().add(const ProductInitEvent());
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

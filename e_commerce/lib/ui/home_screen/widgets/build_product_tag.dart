@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 part of '../home_screen.dart';
 
 class _BuildProductTag extends StatelessWidget {
@@ -12,7 +10,6 @@ class _BuildProductTag extends StatelessWidget {
         return state.listOfProductTag;
       },
       builder: (context, state) {
-        print("rebuild listOfProductTag");
         if (state.isEmpty) {
           return const SizedBox.shrink();
         }
@@ -47,7 +44,7 @@ class _BuildProducTagItem extends StatelessWidget {
         },
         child: BlocSelector<ProductBloc, ProductBlocState, ProductTag?>(
           selector: (state) {
-            return state.productTagSelected;
+            return state.tagSelected;
           },
           builder: (context, state) {
             var activeUnderline = state == tag;
