@@ -45,7 +45,7 @@ class CustomDialog extends StatelessWidget {
           textColor: actionButton.textColor,
           child: Text(
             actionButton.text,
-            style: TextStyleUtils.bold(30),
+            style: TextStyleUtils.bold(20),
             textAlign: TextAlign.center,
           ),
         ),
@@ -58,7 +58,7 @@ class CustomDialog extends StatelessWidget {
     return AlertDialog(
       title: Text(
         titleText,
-        style: TextStyleUtils.bold(35).copyWith(
+        style: TextStyleUtils.bold(25).copyWith(
           color: ColorUtils.red,
           fontWeight: FontWeight.w600,
         ),

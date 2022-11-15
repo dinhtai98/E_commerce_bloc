@@ -1,3 +1,4 @@
+import 'package:e_commerce/core/blocs/account_bloc/account_bloc.dart';
 import 'package:e_commerce/core/utils/color_utils.dart';
 import 'package:e_commerce/core/utils/custom_button.dart';
 import 'package:e_commerce/core/utils/text_style_utils.dart';
@@ -5,6 +6,7 @@ import 'package:e_commerce/global/app_text.dart';
 import 'package:e_commerce/core/utils/animation_ease_in.dart';
 import 'package:e_commerce/global/router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -143,7 +145,12 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                         animationDuration: _animationDurationOfText,
                         child: CustomButton(
                           onPressed: () {
-                            Get.toNamed(MyRouter.authenticationScreen);
+                            var bloc = context.read<AccountBloc>();
+                            if (bloc.state.currentAccount != null) {
+                              Get.toNamed(MyRouter.homeScreen);
+                            } else {
+                              Get.toNamed(MyRouter.authenticationScreen);
+                            }
                           },
                           child: Text(
                             AppText.btnLetsContinue,

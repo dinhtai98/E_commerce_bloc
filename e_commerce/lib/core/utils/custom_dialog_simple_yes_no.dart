@@ -18,7 +18,7 @@ class CustomDialogSimple extends StatelessWidget {
       titleText: titleText,
       content: Text(
         bodyText,
-        style: TextStyleUtils.regular(30),
+        style: TextStyleUtils.regular(20),
       ),
       actionButtons: actionButtons,
     );

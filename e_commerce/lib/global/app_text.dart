@@ -19,7 +19,7 @@ class AppText {
       'We deliver the best and freshest fruit salad in town. Order for a combo today!!!';
   static const authenticationTitle1 = 'What is your firstname?';
   static const lblName = 'Name';
-  static const lblWelcome = 'Welcome,';
+  static const lblWelcome = 'Welcome';
   static const lblBasket = 'Basket';
   static const lblSearchForFruitSaladCombos = 'Search for fruit salad combos';
   static const lblRecommendedCombo = 'Recommended Combo';
@@ -46,6 +46,7 @@ class AppText {
   static const lblDeliveryOrderIsBeingDelivered = 'Order is being delivered';
   static const lblOrderReceived = 'Order Received';
   static const lblYourMealIsOnItsWay = 'Your meal is on it’s way!!';
+  static const lblNameIsEmpty = 'Name is empty';
 
   static const btnPayOnDelivery = 'Pay on delivery';
   static const btnPayWithCard = 'Pay with card';
