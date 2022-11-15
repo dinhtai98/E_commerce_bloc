@@ -1,7 +1,9 @@
 // ignore_for_file: avoid_print
 
+import 'package:e_commerce/core/blocs/account_bloc/account_bloc.dart';
 import 'package:e_commerce/core/blocs/home_blocs/category_bloc/home_category_bloc.dart';
 import 'package:e_commerce/core/blocs/home_blocs/product_bloc/product_bloc.dart';
+import 'package:e_commerce/core/database/entities/account_entity.dart';
 import 'package:e_commerce/core/database/entities/product_tags/product_tag_entity.dart';
 import 'package:e_commerce/core/ui_models/category_ui_model.dart';
 import 'package:e_commerce/core/ui_models/product_ui_model.dart';
@@ -47,11 +49,19 @@ class _HomeScreenState extends State<HomeScreen> {
           iconSize: 20,
           onPressed: () {},
         ),
-        title: Text(
-          AppText.lblWelcome + " Chris" + '.',
-          style: TextStyleUtils.regular(14).copyWith(
-            color: ColorUtils.blue,
-          ),
+        title: BlocSelector<AccountBloc, AccountState, Account>(
+          selector: (state) {
+            return state.currentAccount!;
+          },
+          builder: (context, state) {
+            var accountName = state.name;
+            return Text(
+              '${AppText.lblWelcome}, $accountName.',
+              style: TextStyleUtils.regular(14).copyWith(
+                color: ColorUtils.blue,
+              ),
+            );
+          },
         ),
         activeBasketButton: true,
         body: Column(

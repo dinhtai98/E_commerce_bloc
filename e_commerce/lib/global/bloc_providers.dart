@@ -5,7 +5,8 @@ import 'package:e_commerce/core/blocs/home_blocs/product_bloc/product_bloc.dart'
 import 'package:flutter_bloc/src/bloc_provider.dart';
 
 List<BlocProviderSingleChildWidget> blocProviders = [
-  BlocProvider(create: (_) => AccountBloc()),
+  BlocProvider(
+      lazy: false, create: (_) => AccountBloc()..add(const AccountInitEvent())),
   BlocProvider(
     lazy: false,
     create: (_) => HomeCategoryBloc()..add(const CategoryInitEvent()),
