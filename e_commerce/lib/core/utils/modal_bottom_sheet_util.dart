@@ -24,7 +24,7 @@ class ModalBottomSheet extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.bottomRight,
                   child: IconButtonUtil(
-                    ontap: () {
+                    onTap: () {
                       Get.back();
                     },
                     buttonSize: 48,

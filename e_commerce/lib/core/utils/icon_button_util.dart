@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 class IconButtonUtil extends StatelessWidget {
   final Icon icon;
   final double buttonSize;
-  final VoidCallback ontap;
+  final VoidCallback onTap;
   final Color background;
   const IconButtonUtil({
-    required this.ontap,
+    required this.onTap,
     required this.icon,
     required this.buttonSize,
     this.background = const Color(0xFFFFF2E7),
@@ -17,7 +17,7 @@ class IconButtonUtil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ontap,
+      onTap: onTap,
       child: Container(
         width: buttonSize,
         height: buttonSize,

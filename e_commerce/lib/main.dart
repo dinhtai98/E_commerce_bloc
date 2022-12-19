@@ -1,3 +1,4 @@
+import 'package:e_commerce/core/utils/app_bloc_observer.dart';
 import 'package:e_commerce/core/utils/navigation_utils.dart';
 import 'package:e_commerce/global/bloc_providers.dart';
 import 'package:e_commerce/global/locator.dart';
@@ -17,6 +18,7 @@ Future<void> mainDelegate() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Permission.storage.request();
   await setupLocator();
+  Bloc.observer = AppBlocObserver();
   runApp(const MyApp());
 }
 

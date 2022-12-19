@@ -25,7 +25,7 @@ class DeliveryStatusScreen extends StatelessWidget {
             size: 20,
             color: ColorUtils.white,
           ),
-          ontap: () {},
+          onTap: () {},
           background: ColorUtils.green,
         ),
       ),
@@ -40,7 +40,7 @@ class DeliveryStatusScreen extends StatelessWidget {
             size: 20,
             color: ColorUtils.white,
           ),
-          ontap: () {},
+          onTap: () {},
           background: ColorUtils.green,
         ),
       ),
@@ -56,7 +56,7 @@ class DeliveryStatusScreen extends StatelessWidget {
             size: 30,
             color: ColorUtils.white,
           ),
-          ontap: () {},
+          onTap: () {},
           background: ColorUtils.deepOrange,
         ),
       ),
@@ -71,14 +71,14 @@ class DeliveryStatusScreen extends StatelessWidget {
             size: 60.sp,
             color: ColorUtils.lightOrange,
           ),
-          ontap: () {},
+          onTap: () {},
           background: ColorUtils.transparent,
         ),
         finalStep: true,
       ),
     ];
     return Scaffold(
-      body: CustomAppbarAndBody(
+      body: CustomAppBarAndBody(
         backgroundColor: ColorUtils.deepOrange,
         activeBackButton: true,
         title: Text(

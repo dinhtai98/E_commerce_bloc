@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class CustomAppbarAndBody extends StatelessWidget
+class CustomAppBarAndBody extends StatelessWidget
     implements PreferredSizeWidget {
   final Widget? leading;
   final Widget? title;
@@ -16,7 +16,7 @@ class CustomAppbarAndBody extends StatelessWidget
   final Color backgroundColor;
   final Widget body;
   final double height;
-  const CustomAppbarAndBody({
+  const CustomAppBarAndBody({
     Key? key,
     this.leading,
     this.title,

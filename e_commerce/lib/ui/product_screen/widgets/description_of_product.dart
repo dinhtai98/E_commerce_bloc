@@ -23,7 +23,7 @@ class DescriptionOfProduct extends StatelessWidget {
             children: [
               _BuildQuantityGroupButton(item: item),
               Text(
-                locator<GlobalData>().currencySymboy +
+                locator<GlobalData>().currencySymbol +
                     ' ' +
                     item.product.price.toString(),
                 style:
@@ -50,8 +50,8 @@ class _BuildQuantityGroupButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButtonUtil(
-            ontap: () {
-              //TODO remove product to basket
+            onTap: () {
+              context.read<QuantityCubit>().decrement();
             },
             buttonSize: 32,
             icon: Icon(
@@ -60,15 +60,19 @@ class _BuildQuantityGroupButton extends StatelessWidget {
               color: ColorUtils.deepOrange,
             ),
           ),
-          Text(
-            '1',
-            style: TextStyleUtils.regular(24).copyWith(
-              color: ColorUtils.blue,
-            ),
+          BlocBuilder<QuantityCubit, int>(
+            builder: (context, state) {
+              return Text(
+                '$state',
+                style: TextStyleUtils.regular(24).copyWith(
+                  color: ColorUtils.blue,
+                ),
+              );
+            },
           ),
           IconButtonUtil(
-            ontap: () {
-              //TODO add product to basket
+            onTap: () {
+              context.read<QuantityCubit>().increment();
             },
             buttonSize: 32,
             icon: Icon(

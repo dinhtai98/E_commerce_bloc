@@ -4,13 +4,21 @@ import 'package:isar/isar.dart';
 
 part 'product_tag_entity.g.dart';
 
-@collection
+@Collection(inheritance: false)
+// ignore: must_be_immutable
 class ProductTag extends BaseEntity {
+  @override
+  Id id;
   late String name;
   @Backlink(to: 'productTag')
   var products = IsarLinks<Product>();
   ProductTag({
     String? uid,
     required this.name,
-  }) : super(uid: uid);
+  }) : id = Isar.autoIncrement,
+        super(uid: uid);
+
+  @ignore
+  @override
+  List<Object?> get props => [name];
 }

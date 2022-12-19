@@ -41,4 +41,9 @@ class ProductBlocState extends Equatable {
       tagSelected: tagSelected ?? this.tagSelected,
     );
   }
+
+  @override
+  String toString() {
+    return 'ProductBlocState(listOfProduct: $listOfProduct, listOfProductRecommended: $listOfProductRecommended, listOfProductTag: $listOfProductTag, tagSelected: $tagSelected, tagSelected]: $tagSelected])';
+  }
 }

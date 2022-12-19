@@ -1,7 +1,7 @@
 part of '../home_screen.dart';
 
-class _BuilCategory extends StatelessWidget {
-  const _BuilCategory({Key? key}) : super(key: key);
+class _BuildCategory extends StatelessWidget {
+  const _BuildCategory({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

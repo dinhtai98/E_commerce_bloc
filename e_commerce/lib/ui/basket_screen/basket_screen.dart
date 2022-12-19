@@ -1,3 +1,6 @@
+import 'package:e_commerce/core/blocs/basket_blocs/basket_bloc/basket_bloc.dart';
+import 'package:e_commerce/core/blocs/home_blocs/product_bloc/product_bloc.dart';
+import 'package:e_commerce/core/ui_models/product_ui_model.dart';
 import 'package:e_commerce/core/utils/color_utils.dart';
 import 'package:e_commerce/core/utils/custom_button.dart';
 import 'package:e_commerce/core/utils/text_style_utils.dart';
@@ -8,6 +11,7 @@ import 'package:e_commerce/ui/basket_screen/widgets/basket_item_widget.dart';
 import 'package:e_commerce/ui/common_widgets/appbar.dart';
 import 'package:e_commerce/ui/delivery_details_screen/delivery_details_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BasketScreen extends StatefulWidget {
@@ -18,34 +22,23 @@ class BasketScreen extends StatefulWidget {
 }
 
 class _BasketScreenState extends State<BasketScreen> {
-  final GlobalKey<AnimatedListState> _key = GlobalKey();
-  final basketList = locator<GlobalData>().basketList;
-  final _basketUIModelList = <Widget>[];
+  late BasketBloc basketBloc;
+  late ProductBloc productBloc;
+  late List<ProductUIModel> productUiModel;
 
   @override
   void initState() {
-    _loadBasketItem();
+    basketBloc = context.read<BasketBloc>();
+    productBloc = context.read<ProductBloc>();
+    basketBloc.add(const BasketInitEvent());
+    productUiModel = productBloc.state.listOfProduct;
     super.initState();
-  }
-
-  void _loadBasketItem() {
-    var future = Future(() {});
-    for (var basketItem in basketList) {
-      future = future.then((_) {
-        return Future.delayed(const Duration(milliseconds: 100), () {
-          _basketUIModelList.add(BasketItem(
-            item: basketItem,
-          ));
-          _key.currentState?.insertItem(_basketUIModelList.length - 1);
-        });
-      });
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomAppbarAndBody(
+      body: CustomAppBarAndBody(
         backgroundColor: ColorUtils.deepOrange,
         activeBasketButton: false,
         activeBackButton: true,
@@ -58,20 +51,24 @@ class _BasketScreenState extends State<BasketScreen> {
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.w),
-                child: AnimatedList(
-                  key: _key,
-                  initialItemCount: _basketUIModelList.length,
-                  itemBuilder: (context, index, animation) {
-                    return SlideTransition(
-                      position: CurvedAnimation(
-                        curve: Curves.easeOut,
-                        parent: animation,
-                      ).drive((Tween<Offset>(
-                        begin: const Offset(1, 0),
-                        end: const Offset(0, 0),
-                      ))),
-                      child: _basketUIModelList[index],
-                    );
+                child: BlocBuilder<BasketBloc, BasketState>(
+                  buildWhen: (previous, current) =>
+                      current is BasketLoadedState,
+                  builder: (context, state) {
+                    if (state is BasketLoadedState &&
+                        state.basketItems.isNotEmpty) {
+                      return ListView.builder(
+                        itemCount: state.basketItems.length,
+                        itemBuilder: (context, index) {
+                          var basketItem = state.basketItems[index]
+                              .toUIModel(productUiModel);
+                          return BasketItemWidget(
+                            item: basketItem,
+                          );
+                        },
+                      );
+                    }
+                    return const SizedBox.shrink();
                   },
                 ),
               ),
@@ -94,11 +91,23 @@ class _BasketScreenState extends State<BasketScreen> {
                             color: ColorUtils.black,
                           ),
                         ),
-                        Text(
-                          locator<GlobalData>().currencySymboy + ' ' + '60,000',
-                          style: TextStyleUtils.medium(24).copyWith(
-                            color: ColorUtils.blue,
-                          ),
+                        BlocSelector<BasketBloc, BasketState, double>(
+                          selector: (state) {
+                            if (state is BasketLoadedState) {
+                              return state.totalPrice;
+                            }
+                            return 0;
+                          },
+                          builder: (context, totalPrice) {
+                            return Text(
+                              locator<GlobalData>().currencySymbol +
+                                  ' ' +
+                                  ' $totalPrice',
+                              style: TextStyleUtils.medium(24).copyWith(
+                                color: ColorUtils.blue,
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
