@@ -19,7 +19,7 @@ class _BuildProductTag extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: state.length,
             itemBuilder: (context, index) {
-              return _BuildProducTagItem(tag: state[index]);
+              return _BuildProductTagItem(tag: state[index]);
             },
           ),
         );
@@ -28,9 +28,9 @@ class _BuildProductTag extends StatelessWidget {
   }
 }
 
-class _BuildProducTagItem extends StatelessWidget {
+class _BuildProductTagItem extends StatelessWidget {
   final ProductTag tag;
-  const _BuildProducTagItem({Key? key, required this.tag}) : super(key: key);
+  const _BuildProductTagItem({Key? key, required this.tag}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

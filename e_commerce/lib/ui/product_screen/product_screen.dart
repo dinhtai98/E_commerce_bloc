@@ -1,3 +1,5 @@
+import 'package:e_commerce/core/blocs/basket_blocs/basket_bloc/basket_bloc.dart';
+import 'package:e_commerce/core/blocs/home_blocs/quantity_cubit/quantity_cubit.dart';
 import 'package:e_commerce/core/ui_models/product_ui_model.dart';
 import 'package:e_commerce/core/utils/animation_ease_in.dart';
 import 'package:e_commerce/core/utils/color_utils.dart';
@@ -8,12 +10,15 @@ import 'package:e_commerce/core/utils/text_underliner.dart';
 import 'package:e_commerce/global/app_text.dart';
 import 'package:e_commerce/global/global_data.dart';
 import 'package:e_commerce/global/locator.dart';
+import 'package:e_commerce/global/router.dart';
 import 'package:e_commerce/ui/common_widgets/appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-part 'widgets/description_of_product.dart';
 part 'widgets/combo_contain_widgets.dart';
+part 'widgets/description_of_product.dart';
 
 class ProductScreenArguments {
   final ProductUIModel product;
@@ -41,11 +46,14 @@ class _ProductScreenState extends State<ProductScreen>
   ));
   final Duration _animationDurationOfText = const Duration(milliseconds: 300);
   final Duration _animationDurationDelay = const Duration(milliseconds: 100);
+  late QuantityCubit quantityCubit;
 
   @override
   void initState() {
     super.initState();
     _animationImageController.forward();
+    quantityCubit = context.read<QuantityCubit>();
+    quantityCubit.resetQuantity();
   }
 
   @override
@@ -58,7 +66,7 @@ class _ProductScreenState extends State<ProductScreen>
   Widget build(BuildContext context) {
     var item = widget.arguments.product;
     return Scaffold(
-      body: CustomAppbarAndBody(
+      body: CustomAppBarAndBody(
         activeBasketButton: true,
         activeBackButton: true,
         backgroundColor: ColorUtils.deepOrange,
@@ -150,7 +158,7 @@ class _ProductScreenState extends State<ProductScreen>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 IconButtonUtil(
-                                  ontap: () {
+                                  onTap: () {
                                     //TODO Select product to favorite list
                                   },
                                   icon: Icon(
@@ -164,7 +172,14 @@ class _ProductScreenState extends State<ProductScreen>
                                   height: 50,
                                   minWidth: 200,
                                   onPressed: () {
-                                    //TODO add to basket
+                                    var quantity = quantityCubit.state;
+                                    context.read<BasketBloc>().add(
+                                          AddBasketItemEvent(
+                                            product: item.product,
+                                            quantity: quantity,
+                                          ),
+                                        );
+                                    Get.offNamed(MyRouter.myBasketScreen);
                                   },
                                   child: Text(
                                     AppText.btnAddToBasket,

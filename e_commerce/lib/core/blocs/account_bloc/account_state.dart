@@ -22,4 +22,8 @@ class AccountState extends Equatable {
       accountInserted: accountInserted ?? this.accountInserted,
     );
   }
+
+  @override
+  String toString() =>
+      'AccountState(currentAccount: $currentAccount, accountInserted: $accountInserted)';
 }

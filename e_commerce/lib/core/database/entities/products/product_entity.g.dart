@@ -36,11 +36,6 @@ const ProductSchema = CollectionSchema(
       id: 3,
       name: r'price',
       type: IsarType.double,
-    ),
-    r'uid': PropertySchema(
-      id: 4,
-      name: r'uid',
-      type: IsarType.string,
     )
   },
   estimateSize: _productEstimateSize,
@@ -48,21 +43,7 @@ const ProductSchema = CollectionSchema(
   deserialize: _productDeserialize,
   deserializeProp: _productDeserializeProp,
   idName: r'id',
-  indexes: {
-    r'uid': IndexSchema(
-      id: 8193695471701937315,
-      name: r'uid',
-      unique: true,
-      replace: false,
-      properties: [
-        IndexPropertySchema(
-          name: r'uid',
-          type: IndexType.hash,
-          caseSensitive: true,
-        )
-      ],
-    )
-  },
+  indexes: {},
   links: {
     r'productTag': LinkSchema(
       id: -3514963452298555990,
@@ -75,7 +56,7 @@ const ProductSchema = CollectionSchema(
   getId: _productGetId,
   getLinks: _productGetLinks,
   attach: _productAttach,
-  version: '3.0.2',
+  version: '3.0.5',
 );
 
 int _productEstimateSize(
@@ -86,12 +67,6 @@ int _productEstimateSize(
   var bytesCount = offsets.last;
   bytesCount += 3 + object.image.length * 3;
   bytesCount += 3 + object.name.length * 3;
-  {
-    final value = object.uid;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
   return bytesCount;
 }
 
@@ -105,7 +80,6 @@ void _productSerialize(
   writer.writeString(offsets[1], object.image);
   writer.writeString(offsets[2], object.name);
   writer.writeDouble(offsets[3], object.price);
-  writer.writeString(offsets[4], object.uid);
 }
 
 Product _productDeserialize(
@@ -119,7 +93,6 @@ Product _productDeserialize(
     image: reader.readString(offsets[1]),
     name: reader.readString(offsets[2]),
     price: reader.readDouble(offsets[3]),
-    uid: reader.readStringOrNull(offsets[4]),
   );
   object.id = id;
   return object;
@@ -140,8 +113,6 @@ P _productDeserializeProp<P>(
       return (reader.readString(offset)) as P;
     case 3:
       return (reader.readDouble(offset)) as P;
-    case 4:
-      return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -159,60 +130,6 @@ void _productAttach(IsarCollection<dynamic> col, Id id, Product object) {
   object.id = id;
   object.productTag
       .attach(col, col.isar.collection<ProductTag>(), r'productTag', id);
-}
-
-extension ProductByIndex on IsarCollection<Product> {
-  Future<Product?> getByUid(String? uid) {
-    return getByIndex(r'uid', [uid]);
-  }
-
-  Product? getByUidSync(String? uid) {
-    return getByIndexSync(r'uid', [uid]);
-  }
-
-  Future<bool> deleteByUid(String? uid) {
-    return deleteByIndex(r'uid', [uid]);
-  }
-
-  bool deleteByUidSync(String? uid) {
-    return deleteByIndexSync(r'uid', [uid]);
-  }
-
-  Future<List<Product?>> getAllByUid(List<String?> uidValues) {
-    final values = uidValues.map((e) => [e]).toList();
-    return getAllByIndex(r'uid', values);
-  }
-
-  List<Product?> getAllByUidSync(List<String?> uidValues) {
-    final values = uidValues.map((e) => [e]).toList();
-    return getAllByIndexSync(r'uid', values);
-  }
-
-  Future<int> deleteAllByUid(List<String?> uidValues) {
-    final values = uidValues.map((e) => [e]).toList();
-    return deleteAllByIndex(r'uid', values);
-  }
-
-  int deleteAllByUidSync(List<String?> uidValues) {
-    final values = uidValues.map((e) => [e]).toList();
-    return deleteAllByIndexSync(r'uid', values);
-  }
-
-  Future<Id> putByUid(Product object) {
-    return putByIndex(r'uid', object);
-  }
-
-  Id putByUidSync(Product object, {bool saveLinks = true}) {
-    return putByIndexSync(r'uid', object, saveLinks: saveLinks);
-  }
-
-  Future<List<Id>> putAllByUid(List<Product> objects) {
-    return putAllByIndex(r'uid', objects);
-  }
-
-  List<Id> putAllByUidSync(List<Product> objects, {bool saveLinks = true}) {
-    return putAllByIndexSync(r'uid', objects, saveLinks: saveLinks);
-  }
 }
 
 extension ProductQueryWhereSort on QueryBuilder<Product, Product, QWhere> {
@@ -286,69 +203,6 @@ extension ProductQueryWhere on QueryBuilder<Product, Product, QWhereClause> {
         upper: upperId,
         includeUpper: includeUpper,
       ));
-    });
-  }
-
-  QueryBuilder<Product, Product, QAfterWhereClause> uidIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.equalTo(
-        indexName: r'uid',
-        value: [null],
-      ));
-    });
-  }
-
-  QueryBuilder<Product, Product, QAfterWhereClause> uidIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.between(
-        indexName: r'uid',
-        lower: [null],
-        includeLower: false,
-        upper: [],
-      ));
-    });
-  }
-
-  QueryBuilder<Product, Product, QAfterWhereClause> uidEqualTo(String? uid) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.equalTo(
-        indexName: r'uid',
-        value: [uid],
-      ));
-    });
-  }
-
-  QueryBuilder<Product, Product, QAfterWhereClause> uidNotEqualTo(String? uid) {
-    return QueryBuilder.apply(this, (query) {
-      if (query.whereSort == Sort.asc) {
-        return query
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'uid',
-              lower: [],
-              upper: [uid],
-              includeUpper: false,
-            ))
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'uid',
-              lower: [uid],
-              includeLower: false,
-              upper: [],
-            ));
-      } else {
-        return query
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'uid',
-              lower: [uid],
-              includeLower: false,
-              upper: [],
-            ))
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'uid',
-              lower: [],
-              upper: [uid],
-              includeUpper: false,
-            ));
-      }
     });
   }
 }
@@ -738,152 +592,6 @@ extension ProductQueryFilter
       ));
     });
   }
-
-  QueryBuilder<Product, Product, QAfterFilterCondition> uidIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'uid',
-      ));
-    });
-  }
-
-  QueryBuilder<Product, Product, QAfterFilterCondition> uidIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'uid',
-      ));
-    });
-  }
-
-  QueryBuilder<Product, Product, QAfterFilterCondition> uidEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'uid',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Product, Product, QAfterFilterCondition> uidGreaterThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'uid',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Product, Product, QAfterFilterCondition> uidLessThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'uid',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Product, Product, QAfterFilterCondition> uidBetween(
-    String? lower,
-    String? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'uid',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Product, Product, QAfterFilterCondition> uidStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'uid',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Product, Product, QAfterFilterCondition> uidEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'uid',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Product, Product, QAfterFilterCondition> uidContains(
-      String value,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'uid',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Product, Product, QAfterFilterCondition> uidMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'uid',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Product, Product, QAfterFilterCondition> uidIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'uid',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<Product, Product, QAfterFilterCondition> uidIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'uid',
-        value: '',
-      ));
-    });
-  }
 }
 
 extension ProductQueryObject
@@ -953,18 +661,6 @@ extension ProductQuerySortBy on QueryBuilder<Product, Product, QSortBy> {
       return query.addSortBy(r'price', Sort.desc);
     });
   }
-
-  QueryBuilder<Product, Product, QAfterSortBy> sortByUid() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'uid', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Product, Product, QAfterSortBy> sortByUidDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'uid', Sort.desc);
-    });
-  }
 }
 
 extension ProductQuerySortThenBy
@@ -1028,18 +724,6 @@ extension ProductQuerySortThenBy
       return query.addSortBy(r'price', Sort.desc);
     });
   }
-
-  QueryBuilder<Product, Product, QAfterSortBy> thenByUid() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'uid', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Product, Product, QAfterSortBy> thenByUidDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'uid', Sort.desc);
-    });
-  }
 }
 
 extension ProductQueryWhereDistinct
@@ -1067,13 +751,6 @@ extension ProductQueryWhereDistinct
   QueryBuilder<Product, Product, QDistinct> distinctByPrice() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'price');
-    });
-  }
-
-  QueryBuilder<Product, Product, QDistinct> distinctByUid(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'uid', caseSensitive: caseSensitive);
     });
   }
 }
@@ -1107,12 +784,6 @@ extension ProductQueryProperty
   QueryBuilder<Product, double, QQueryOperations> priceProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'price');
-    });
-  }
-
-  QueryBuilder<Product, String?, QQueryOperations> uidProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'uid');
     });
   }
 }

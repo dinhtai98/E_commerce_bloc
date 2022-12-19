@@ -21,11 +21,6 @@ const AccountSchema = CollectionSchema(
       id: 0,
       name: r'name',
       type: IsarType.string,
-    ),
-    r'uid': PropertySchema(
-      id: 1,
-      name: r'uid',
-      type: IsarType.string,
     )
   },
   estimateSize: _accountEstimateSize,
@@ -33,27 +28,13 @@ const AccountSchema = CollectionSchema(
   deserialize: _accountDeserialize,
   deserializeProp: _accountDeserializeProp,
   idName: r'id',
-  indexes: {
-    r'uid': IndexSchema(
-      id: 8193695471701937315,
-      name: r'uid',
-      unique: true,
-      replace: false,
-      properties: [
-        IndexPropertySchema(
-          name: r'uid',
-          type: IndexType.hash,
-          caseSensitive: true,
-        )
-      ],
-    )
-  },
+  indexes: {},
   links: {},
   embeddedSchemas: {},
   getId: _accountGetId,
   getLinks: _accountGetLinks,
   attach: _accountAttach,
-  version: '3.0.2',
+  version: '3.0.5',
 );
 
 int _accountEstimateSize(
@@ -63,12 +44,6 @@ int _accountEstimateSize(
 ) {
   var bytesCount = offsets.last;
   bytesCount += 3 + object.name.length * 3;
-  {
-    final value = object.uid;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
   return bytesCount;
 }
 
@@ -79,7 +54,6 @@ void _accountSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.name);
-  writer.writeString(offsets[1], object.uid);
 }
 
 Account _accountDeserialize(
@@ -90,7 +64,6 @@ Account _accountDeserialize(
 ) {
   final object = Account(
     name: reader.readString(offsets[0]),
-    uid: reader.readStringOrNull(offsets[1]),
   );
   object.id = id;
   return object;
@@ -105,8 +78,6 @@ P _accountDeserializeProp<P>(
   switch (propertyId) {
     case 0:
       return (reader.readString(offset)) as P;
-    case 1:
-      return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -122,60 +93,6 @@ List<IsarLinkBase<dynamic>> _accountGetLinks(Account object) {
 
 void _accountAttach(IsarCollection<dynamic> col, Id id, Account object) {
   object.id = id;
-}
-
-extension AccountByIndex on IsarCollection<Account> {
-  Future<Account?> getByUid(String? uid) {
-    return getByIndex(r'uid', [uid]);
-  }
-
-  Account? getByUidSync(String? uid) {
-    return getByIndexSync(r'uid', [uid]);
-  }
-
-  Future<bool> deleteByUid(String? uid) {
-    return deleteByIndex(r'uid', [uid]);
-  }
-
-  bool deleteByUidSync(String? uid) {
-    return deleteByIndexSync(r'uid', [uid]);
-  }
-
-  Future<List<Account?>> getAllByUid(List<String?> uidValues) {
-    final values = uidValues.map((e) => [e]).toList();
-    return getAllByIndex(r'uid', values);
-  }
-
-  List<Account?> getAllByUidSync(List<String?> uidValues) {
-    final values = uidValues.map((e) => [e]).toList();
-    return getAllByIndexSync(r'uid', values);
-  }
-
-  Future<int> deleteAllByUid(List<String?> uidValues) {
-    final values = uidValues.map((e) => [e]).toList();
-    return deleteAllByIndex(r'uid', values);
-  }
-
-  int deleteAllByUidSync(List<String?> uidValues) {
-    final values = uidValues.map((e) => [e]).toList();
-    return deleteAllByIndexSync(r'uid', values);
-  }
-
-  Future<Id> putByUid(Account object) {
-    return putByIndex(r'uid', object);
-  }
-
-  Id putByUidSync(Account object, {bool saveLinks = true}) {
-    return putByIndexSync(r'uid', object, saveLinks: saveLinks);
-  }
-
-  Future<List<Id>> putAllByUid(List<Account> objects) {
-    return putAllByIndex(r'uid', objects);
-  }
-
-  List<Id> putAllByUidSync(List<Account> objects, {bool saveLinks = true}) {
-    return putAllByIndexSync(r'uid', objects, saveLinks: saveLinks);
-  }
 }
 
 extension AccountQueryWhereSort on QueryBuilder<Account, Account, QWhere> {
@@ -249,69 +166,6 @@ extension AccountQueryWhere on QueryBuilder<Account, Account, QWhereClause> {
         upper: upperId,
         includeUpper: includeUpper,
       ));
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterWhereClause> uidIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.equalTo(
-        indexName: r'uid',
-        value: [null],
-      ));
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterWhereClause> uidIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.between(
-        indexName: r'uid',
-        lower: [null],
-        includeLower: false,
-        upper: [],
-      ));
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterWhereClause> uidEqualTo(String? uid) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.equalTo(
-        indexName: r'uid',
-        value: [uid],
-      ));
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterWhereClause> uidNotEqualTo(String? uid) {
-    return QueryBuilder.apply(this, (query) {
-      if (query.whereSort == Sort.asc) {
-        return query
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'uid',
-              lower: [],
-              upper: [uid],
-              includeUpper: false,
-            ))
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'uid',
-              lower: [uid],
-              includeLower: false,
-              upper: [],
-            ));
-      } else {
-        return query
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'uid',
-              lower: [uid],
-              includeLower: false,
-              upper: [],
-            ))
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'uid',
-              lower: [],
-              upper: [uid],
-              includeUpper: false,
-            ));
-      }
     });
   }
 }
@@ -499,152 +353,6 @@ extension AccountQueryFilter
       ));
     });
   }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'uid',
-      ));
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'uid',
-      ));
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'uid',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidGreaterThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'uid',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidLessThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'uid',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidBetween(
-    String? lower,
-    String? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'uid',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'uid',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'uid',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidContains(
-      String value,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'uid',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'uid',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'uid',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> uidIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'uid',
-        value: '',
-      ));
-    });
-  }
 }
 
 extension AccountQueryObject
@@ -663,18 +371,6 @@ extension AccountQuerySortBy on QueryBuilder<Account, Account, QSortBy> {
   QueryBuilder<Account, Account, QAfterSortBy> sortByNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterSortBy> sortByUid() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'uid', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterSortBy> sortByUidDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'uid', Sort.desc);
     });
   }
 }
@@ -704,18 +400,6 @@ extension AccountQuerySortThenBy
       return query.addSortBy(r'name', Sort.desc);
     });
   }
-
-  QueryBuilder<Account, Account, QAfterSortBy> thenByUid() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'uid', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterSortBy> thenByUidDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'uid', Sort.desc);
-    });
-  }
 }
 
 extension AccountQueryWhereDistinct
@@ -724,13 +408,6 @@ extension AccountQueryWhereDistinct
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'name', caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<Account, Account, QDistinct> distinctByUid(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'uid', caseSensitive: caseSensitive);
     });
   }
 }
@@ -746,12 +423,6 @@ extension AccountQueryProperty
   QueryBuilder<Account, String, QQueryOperations> nameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'name');
-    });
-  }
-
-  QueryBuilder<Account, String?, QQueryOperations> uidProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'uid');
     });
   }
 }

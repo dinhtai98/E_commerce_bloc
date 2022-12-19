@@ -25,4 +25,8 @@ class CategorySelectedState extends HomeCategoryBlocState {
   const CategorySelectedState(
       {required this.category, required this.listOfCategory})
       : super(categorySelected: category, categories: listOfCategory);
+
+  @override
+  String toString() =>
+      'CategorySelectedState(category: $category, listOfCategory: $listOfCategory)';
 }

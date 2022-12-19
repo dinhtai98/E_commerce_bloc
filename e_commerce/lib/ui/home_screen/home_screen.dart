@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:e_commerce/core/blocs/account_bloc/account_bloc.dart';
+import 'package:e_commerce/core/blocs/basket_blocs/basket_bloc/basket_bloc.dart';
 import 'package:e_commerce/core/blocs/home_blocs/category_bloc/home_category_bloc.dart';
 import 'package:e_commerce/core/blocs/home_blocs/product_bloc/product_bloc.dart';
 import 'package:e_commerce/core/database/entities/account_entity.dart';
@@ -43,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomAppbarAndBody(
+      body: CustomAppBarAndBody(
         leading: IconButton(
           icon: Image.asset('assets/images/menu.png'),
           iconSize: 20,
@@ -102,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: 22.h),
             Padding(
               padding: EdgeInsets.only(left: 15.w),
-              child: const _BuilCategory(),
+              child: const _BuildCategory(),
             ),
             SizedBox(height: 12.h),
             Expanded(

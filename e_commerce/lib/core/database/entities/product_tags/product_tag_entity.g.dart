@@ -21,11 +21,6 @@ const ProductTagSchema = CollectionSchema(
       id: 0,
       name: r'name',
       type: IsarType.string,
-    ),
-    r'uid': PropertySchema(
-      id: 1,
-      name: r'uid',
-      type: IsarType.string,
     )
   },
   estimateSize: _productTagEstimateSize,
@@ -33,21 +28,7 @@ const ProductTagSchema = CollectionSchema(
   deserialize: _productTagDeserialize,
   deserializeProp: _productTagDeserializeProp,
   idName: r'id',
-  indexes: {
-    r'uid': IndexSchema(
-      id: 8193695471701937315,
-      name: r'uid',
-      unique: true,
-      replace: false,
-      properties: [
-        IndexPropertySchema(
-          name: r'uid',
-          type: IndexType.hash,
-          caseSensitive: true,
-        )
-      ],
-    )
-  },
+  indexes: {},
   links: {
     r'products': LinkSchema(
       id: -7609654206095096714,
@@ -61,7 +42,7 @@ const ProductTagSchema = CollectionSchema(
   getId: _productTagGetId,
   getLinks: _productTagGetLinks,
   attach: _productTagAttach,
-  version: '3.0.2',
+  version: '3.0.5',
 );
 
 int _productTagEstimateSize(
@@ -71,12 +52,6 @@ int _productTagEstimateSize(
 ) {
   var bytesCount = offsets.last;
   bytesCount += 3 + object.name.length * 3;
-  {
-    final value = object.uid;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
   return bytesCount;
 }
 
@@ -87,7 +62,6 @@ void _productTagSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.name);
-  writer.writeString(offsets[1], object.uid);
 }
 
 ProductTag _productTagDeserialize(
@@ -98,7 +72,6 @@ ProductTag _productTagDeserialize(
 ) {
   final object = ProductTag(
     name: reader.readString(offsets[0]),
-    uid: reader.readStringOrNull(offsets[1]),
   );
   object.id = id;
   return object;
@@ -113,8 +86,6 @@ P _productTagDeserializeProp<P>(
   switch (propertyId) {
     case 0:
       return (reader.readString(offset)) as P;
-    case 1:
-      return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -131,60 +102,6 @@ List<IsarLinkBase<dynamic>> _productTagGetLinks(ProductTag object) {
 void _productTagAttach(IsarCollection<dynamic> col, Id id, ProductTag object) {
   object.id = id;
   object.products.attach(col, col.isar.collection<Product>(), r'products', id);
-}
-
-extension ProductTagByIndex on IsarCollection<ProductTag> {
-  Future<ProductTag?> getByUid(String? uid) {
-    return getByIndex(r'uid', [uid]);
-  }
-
-  ProductTag? getByUidSync(String? uid) {
-    return getByIndexSync(r'uid', [uid]);
-  }
-
-  Future<bool> deleteByUid(String? uid) {
-    return deleteByIndex(r'uid', [uid]);
-  }
-
-  bool deleteByUidSync(String? uid) {
-    return deleteByIndexSync(r'uid', [uid]);
-  }
-
-  Future<List<ProductTag?>> getAllByUid(List<String?> uidValues) {
-    final values = uidValues.map((e) => [e]).toList();
-    return getAllByIndex(r'uid', values);
-  }
-
-  List<ProductTag?> getAllByUidSync(List<String?> uidValues) {
-    final values = uidValues.map((e) => [e]).toList();
-    return getAllByIndexSync(r'uid', values);
-  }
-
-  Future<int> deleteAllByUid(List<String?> uidValues) {
-    final values = uidValues.map((e) => [e]).toList();
-    return deleteAllByIndex(r'uid', values);
-  }
-
-  int deleteAllByUidSync(List<String?> uidValues) {
-    final values = uidValues.map((e) => [e]).toList();
-    return deleteAllByIndexSync(r'uid', values);
-  }
-
-  Future<Id> putByUid(ProductTag object) {
-    return putByIndex(r'uid', object);
-  }
-
-  Id putByUidSync(ProductTag object, {bool saveLinks = true}) {
-    return putByIndexSync(r'uid', object, saveLinks: saveLinks);
-  }
-
-  Future<List<Id>> putAllByUid(List<ProductTag> objects) {
-    return putAllByIndex(r'uid', objects);
-  }
-
-  List<Id> putAllByUidSync(List<ProductTag> objects, {bool saveLinks = true}) {
-    return putAllByIndexSync(r'uid', objects, saveLinks: saveLinks);
-  }
 }
 
 extension ProductTagQueryWhereSort
@@ -260,71 +177,6 @@ extension ProductTagQueryWhere
         upper: upperId,
         includeUpper: includeUpper,
       ));
-    });
-  }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterWhereClause> uidIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.equalTo(
-        indexName: r'uid',
-        value: [null],
-      ));
-    });
-  }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterWhereClause> uidIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.between(
-        indexName: r'uid',
-        lower: [null],
-        includeLower: false,
-        upper: [],
-      ));
-    });
-  }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterWhereClause> uidEqualTo(
-      String? uid) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.equalTo(
-        indexName: r'uid',
-        value: [uid],
-      ));
-    });
-  }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterWhereClause> uidNotEqualTo(
-      String? uid) {
-    return QueryBuilder.apply(this, (query) {
-      if (query.whereSort == Sort.asc) {
-        return query
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'uid',
-              lower: [],
-              upper: [uid],
-              includeUpper: false,
-            ))
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'uid',
-              lower: [uid],
-              includeLower: false,
-              upper: [],
-            ));
-      } else {
-        return query
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'uid',
-              lower: [uid],
-              includeLower: false,
-              upper: [],
-            ))
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'uid',
-              lower: [],
-              upper: [uid],
-              includeUpper: false,
-            ));
-      }
     });
   }
 }
@@ -513,152 +365,6 @@ extension ProductTagQueryFilter
       ));
     });
   }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'uid',
-      ));
-    });
-  }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'uid',
-      ));
-    });
-  }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'uid',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidGreaterThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'uid',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidLessThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'uid',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidBetween(
-    String? lower,
-    String? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'uid',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'uid',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'uid',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidContains(
-      String value,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'uid',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'uid',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'uid',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterFilterCondition> uidIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'uid',
-        value: '',
-      ));
-    });
-  }
 }
 
 extension ProductTagQueryObject
@@ -741,18 +447,6 @@ extension ProductTagQuerySortBy
       return query.addSortBy(r'name', Sort.desc);
     });
   }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterSortBy> sortByUid() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'uid', Sort.asc);
-    });
-  }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterSortBy> sortByUidDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'uid', Sort.desc);
-    });
-  }
 }
 
 extension ProductTagQuerySortThenBy
@@ -780,18 +474,6 @@ extension ProductTagQuerySortThenBy
       return query.addSortBy(r'name', Sort.desc);
     });
   }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterSortBy> thenByUid() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'uid', Sort.asc);
-    });
-  }
-
-  QueryBuilder<ProductTag, ProductTag, QAfterSortBy> thenByUidDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'uid', Sort.desc);
-    });
-  }
 }
 
 extension ProductTagQueryWhereDistinct
@@ -800,13 +482,6 @@ extension ProductTagQueryWhereDistinct
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'name', caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<ProductTag, ProductTag, QDistinct> distinctByUid(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'uid', caseSensitive: caseSensitive);
     });
   }
 }
@@ -822,12 +497,6 @@ extension ProductTagQueryProperty
   QueryBuilder<ProductTag, String, QQueryOperations> nameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'name');
-    });
-  }
-
-  QueryBuilder<ProductTag, String?, QQueryOperations> uidProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'uid');
     });
   }
 }

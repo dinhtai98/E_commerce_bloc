@@ -52,7 +52,7 @@ class _BuildProductItem extends StatelessWidget {
                         RichText(
                           text: TextSpan(children: [
                             TextSpan(
-                              text: locator<GlobalData>().currencySymboy + ' ',
+                              text: locator<GlobalData>().currencySymbol + ' ',
                               style: TextStyleUtils.medium(14).copyWith(
                                 color: ColorUtils.deepOrange,
                               ),
@@ -66,8 +66,10 @@ class _BuildProductItem extends StatelessWidget {
                           ]),
                         ),
                         IconButtonUtil(
-                          ontap: () {
-                            //TODO add product to basket
+                          onTap: () {
+                            context
+                                .read<BasketBloc>()
+                                .add(AddBasketItemEvent(product: item.product));
                           },
                           buttonSize: 24,
                           icon: Icon(
@@ -85,7 +87,7 @@ class _BuildProductItem extends StatelessWidget {
                 left: 130.w,
                 top: 16.h,
                 child: IconButtonUtil(
-                  ontap: () {
+                  onTap: () {
                     //TODO add product to favorite list
                   },
                   buttonSize: 24,
