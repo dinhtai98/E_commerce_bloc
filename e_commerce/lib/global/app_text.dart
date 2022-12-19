@@ -47,6 +47,8 @@ class AppText {
   static const lblOrderReceived = 'Order Received';
   static const lblYourMealIsOnItsWay = 'Your meal is on it’s way!!';
   static const lblNameIsEmpty = 'Name is empty';
+  static const lblAddressIsEmpty = 'Address is empty';
+  static const lblPhoneIsEmpty = 'Phone is empty';
 
   static const btnPayOnDelivery = 'Pay on delivery';
   static const btnPayWithCard = 'Pay with card';
@@ -57,4 +59,5 @@ class AppText {
   static const btnTrackOrder = 'Track order';
   static const btnContinueShopping = 'Continue shopping';
   static const btnAddToBasket = 'Add To Basket';
+  static const btnAddNewDelivery = 'Add New Delivery';
 }
