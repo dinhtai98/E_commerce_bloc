@@ -111,26 +111,39 @@ class _BasketScreenState extends State<BasketScreen> {
                         ),
                       ],
                     ),
-                    CustomButton(
-                      onPressed: () {
-                        showModalBottomSheet(
-                          backgroundColor: ColorUtils.transparent,
-                          isScrollControlled: true,
-                          context: context,
-                          builder: (context) {
-                            return const DeliveryDetailWidget();
-                          },
-                        );
+                    BlocBuilder<BasketBloc, BasketState>(
+                      builder: (context, state) {
+                        if (state is BasketLoadedState) {
+                          var disableCheckout = state.basketItems.isEmpty;
+                          return CustomButton(
+                            disabledColor: ColorUtils.lightOrange,
+                            onPressed: disableCheckout
+                                ? null
+                                : () {
+                                    showModalBottomSheet(
+                                      backgroundColor: ColorUtils.transparent,
+                                      isScrollControlled: true,
+                                      context: context,
+                                      builder: (context) {
+                                        return const DeliveryDetailWidget();
+                                      },
+                                    );
+                                  },
+                            child: Text(
+                              AppText.btnCheckout,
+                              style: TextStyleUtils.medium(16).copyWith(
+                                  color: disableCheckout
+                                      ? ColorUtils.grey
+                                      : ColorUtils.white),
+                            ),
+                            btnColor: ColorUtils.deepOrange,
+                            btnRadius: 10,
+                            height: 56.h,
+                            minWidth: 199.w,
+                          );
+                        }
+                        return const SizedBox.shrink();
                       },
-                      child: Text(
-                        AppText.btnCheckout,
-                        style: TextStyleUtils.medium(16)
-                            .copyWith(color: ColorUtils.white),
-                      ),
-                      btnColor: ColorUtils.deepOrange,
-                      btnRadius: 10,
-                      height: 56.h,
-                      minWidth: 199.w,
                     )
                   ],
                 ),
