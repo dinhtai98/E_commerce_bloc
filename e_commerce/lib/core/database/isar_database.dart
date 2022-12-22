@@ -1,5 +1,6 @@
 import 'package:e_commerce/core/database/entities/account_entity.dart';
 import 'package:e_commerce/core/database/entities/basket_items/basket_item_entity.dart';
+import 'package:e_commerce/core/database/entities/card/card_entity.dart';
 import 'package:e_commerce/core/database/entities/delivery/delivery_entity.dart';
 import 'package:e_commerce/core/database/entities/product_tags/product_tag_entity.dart';
 import 'package:e_commerce/core/database/entities/products/product_entity.dart';
@@ -18,6 +19,7 @@ class IsarDatabase {
     ProductTagSchema,
     BasketItemSchema,
     DeliverySchema,
+    CardEntitySchema,
   ];
   Future<void> init() async {
     isar ??= await Isar.open(schemas, name: "db");

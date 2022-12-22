@@ -49,6 +49,10 @@ class AppText {
   static const lblNameIsEmpty = 'Name is empty';
   static const lblAddressIsEmpty = 'Address is empty';
   static const lblPhoneIsEmpty = 'Phone is empty';
+  static const lblCardHolderNameIsEmpty = 'Card holder’s name is empty';
+  static const lblCardNumberIsEmpty = 'Card number is empty';
+  static const lblDateIsEmpty = 'Date is empty';
+  static const lblCvvIsEmpty = 'CVV is empty';
 
   static const btnPayOnDelivery = 'Pay on delivery';
   static const btnPayWithCard = 'Pay with card';
@@ -60,4 +64,5 @@ class AppText {
   static const btnContinueShopping = 'Continue shopping';
   static const btnAddToBasket = 'Add To Basket';
   static const btnAddNewDelivery = 'Add New Delivery';
+  static const btnInsertCard = 'Add Insert Card';
 }
