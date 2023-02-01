@@ -55,32 +55,36 @@ class _DeliveryDetailWidgetState extends State<DeliveryDetailWidget> {
                           itemCount: state.deliveries.length,
                           itemBuilder: (context, index) {
                             var delivery = state.deliveries[index];
-                            return Stack(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    context.read<DeliveryBloc>().add(
-                                        SelectedDeliveryEvent(
-                                            delivery: delivery));
-                                  },
-                                  child: Card(
-                                    color: delivery.isDefault
-                                        ? Colors.red[200]
-                                        : ColorUtils.grey10,
-                                    child: Container(
-                                      width: double.infinity,
-                                      child: Text(
-                                        delivery.address,
-                                        style: TextStyleUtils.medium(16),
+                            return Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: delivery.isDefault
+                                    ? Colors.red[200]
+                                    : ColorUtils.grey10,
+                                border: Border.all(
+                                    width: 3.0, color: ColorUtils.transparent),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(5.0)),
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: InkWell(
+                                      onTap: () {
+                                        context.read<DeliveryBloc>().add(
+                                            SelectedDeliveryEvent(
+                                                delivery: delivery));
+                                      },
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        child: Text(
+                                          delivery.address,
+                                          style: TextStyleUtils.medium(16),
+                                        ),
                                       ),
-                                      padding: const EdgeInsets.all(10),
                                     ),
                                   ),
-                                ),
-                                Positioned(
-                                  right: 5.w,
-                                  top: 10.h,
-                                  child: IconButtonUtil(
+                                  IconButtonUtil(
                                       onTap: () {
                                         context.read<DeliveryBloc>().add(
                                             RemoveDeliveryEvent(
@@ -91,9 +95,9 @@ class _DeliveryDetailWidgetState extends State<DeliveryDetailWidget> {
                                         size: 20.sp,
                                         color: ColorUtils.red,
                                       ),
-                                      buttonSize: 30),
-                                )
-                              ],
+                                      buttonSize: 30)
+                                ],
+                              ),
                             );
                           },
                         ),

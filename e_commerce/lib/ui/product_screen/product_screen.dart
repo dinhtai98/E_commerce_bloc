@@ -154,42 +154,29 @@ class _ProductScreenState extends State<ProductScreen>
                             delay: _animationDurationOfText +
                                 _animationDurationDelay +
                                 _animationDurationDelay,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                IconButtonUtil(
-                                  onTap: () {
-                                    //TODO Select product to favorite list
-                                  },
-                                  icon: Icon(
-                                    Icons.favorite_border,
-                                    size: 20,
-                                    color: ColorUtils.deepOrange,
-                                  ),
-                                  buttonSize: 48.r,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: CustomButton(
+                                height: 50,
+                                minWidth: 200,
+                                onPressed: () {
+                                  var quantity = quantityCubit.state;
+                                  context.read<BasketBloc>().add(
+                                        AddBasketItemEvent(
+                                          product: item.product,
+                                          quantity: quantity,
+                                        ),
+                                      );
+                                  Get.offNamed(MyRouter.myBasketScreen);
+                                },
+                                child: Text(
+                                  AppText.btnAddToBasket,
+                                  style: TextStyleUtils.medium(16)
+                                      .copyWith(color: ColorUtils.white),
                                 ),
-                                CustomButton(
-                                  height: 50,
-                                  minWidth: 200,
-                                  onPressed: () {
-                                    var quantity = quantityCubit.state;
-                                    context.read<BasketBloc>().add(
-                                          AddBasketItemEvent(
-                                            product: item.product,
-                                            quantity: quantity,
-                                          ),
-                                        );
-                                    Get.offNamed(MyRouter.myBasketScreen);
-                                  },
-                                  child: Text(
-                                    AppText.btnAddToBasket,
-                                    style: TextStyleUtils.medium(16)
-                                        .copyWith(color: ColorUtils.white),
-                                  ),
-                                  btnColor: ColorUtils.deepOrange,
-                                  btnRadius: 10,
-                                )
-                              ],
+                                btnColor: ColorUtils.deepOrange,
+                                btnRadius: 10,
+                              ),
                             ),
                           )
                         ],
