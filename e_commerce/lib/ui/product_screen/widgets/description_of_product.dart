@@ -12,11 +12,27 @@ class DescriptionOfProduct extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            item.product.name,
-            style: TextStyleUtils.medium(24).copyWith(
-              color: ColorUtils.blue,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                item.product.name,
+                style: TextStyleUtils.medium(24).copyWith(
+                  color: ColorUtils.blue,
+                ),
+              ),
+              IconButtonUtil(
+                onTap: () {
+                  //TODO Select product to favorite list
+                },
+                icon: Icon(
+                  Icons.favorite_border,
+                  size: 20,
+                  color: ColorUtils.deepOrange,
+                ),
+                buttonSize: 48.r,
+              ),
+            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -19,7 +19,7 @@ class _LocalizationUtils {
     String value;
     value = _getStaticLocalizedValue(key, _staticLocalizedValues);
     if (params != null) {
-      /// If parametes is not null then replace all these params in the string
+      /// If parameters is not null then replace all these params in the string
       value = _mapParamsToTranslatedString(value, params);
     }
     return value;
